@@ -1,3 +1,7 @@
 /*
 * relative positioning!!
  */
+
+.secret {
+    display: none;
+}

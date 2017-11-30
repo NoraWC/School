@@ -6,11 +6,17 @@
     <script src = "school.js"></script>
     <link rel = 'stylesheet' href = 'school.css'>
 </head>
+
+<!-- web interface w/ buttons, text fields, display area for output
+ table w/ elements: students, teachers, sections
+ interface to add new students, teachers, sections -->
+
 <body>
 <div id = 'displayTable'></div>
 <div id = 'buttonsHere'></div>
 <div id = 'search'><input title = 'First Name' id = 'searchBarOne' type = 'text'>
     <input title = 'Last Name' id = 'searchBarTwo' type = 'text'>
-    <input title = 'ID' id = 'searchBarThree' type = 'text'></div>
+    <input title = 'ID' id = 'searchBarThree' type = 'text'>
+    <button id = 'searchbutton' onclick="search();"></button></div>
 </body>
 </html>
