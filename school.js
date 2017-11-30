@@ -122,8 +122,16 @@ function addTeacher(id, fname, lname, subject) {
 
 function addSection(sect, name, maxSize, currentSize, students, teacher) {
     sect = new Section(name, maxSize, currentSize, students, teacher);
+    SECTIONS += sect;
     return sect;
 }
 function listSectionInfo(sectionId) {
     sectionId.listInfo();
 }
+
+/*
+var j = new Student(9005, "Jane", "Doe", 9);
+var g = new Student(8006, "Geordi", "Doe", 11);
+var t = new Student(1002, "Harry", "Potter", "DADA");
+var sect = new Section("testsect", 30, 2, [j, g], t);
+*/
