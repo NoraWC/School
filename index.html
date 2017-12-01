@@ -13,10 +13,22 @@
 
 <body>
 <div id = 'displayTable'><script>html();</script></div>
-<div id = 'buttonsHere'></div>
-<div id = 'search'><input title = 'First Name' id = 'searchBarOne' type = 'text'>
-    <input title = 'Last Name' id = 'searchBarTwo' type = 'text'>
-    <input title = 'ID' id = 'searchBarThree' type = 'text'>
-    <button id = 'searchbutton' onclick="search();"></button></div>
+
+<button id = 'newSection' onclick = 'addSection();'>add section</button>
+<button id = 'newStudent' onclick = 'addaStudent();'>add student</button>
+<button id = 'newTeacher' onclick = 'addaTeacher();'>add teacher</button>
+
+<input title = 'section' id = 'sectInp' type = 'text' value='section'>
+<input title = 'student' id = 'stuInp' type = 'text'value = 'student'>
+<button id = 'studentInSect' onclick = 'addStudentToSection(document.getElementById("stuInp").value, document.getElementById("sectInp").value);'>add stu to sect</button>
+<button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("stuInp").value, document.getElementById("sectInp").value);'>add tea to sect</button>
+
+<div id = 'search'>
+    <input title = 'First Name' id = 'searchBarOne' type = 'text' value = "FIRST NAME">
+    <input title = 'Last Name' id = 'searchBarTwo' type = 'text' value = "LAST NAME">
+    <input title = 'ID' id = 'searchBarThree' type = 'text' value = "ID">
+    <button id = 'searchbutton' onclick="search();">search</button>
+    <div id = 'displaySearchedStudent'></div>
+</div>
 </body>
 </html>

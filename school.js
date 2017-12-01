@@ -10,7 +10,71 @@
 * OBJECTS
  */
 
-var SECTIONS = [];//lists all sections
+function Person() {
+    this.id = 0;
+    this.firstName = "";
+    this.lastName= "";
+}
+
+function Student(){
+    Person.call();
+    this.grade = 0; //not letter grade; sondern 9-12
+}
+
+function Teacher(){
+    Person.call();
+    this.subject = "";
+}
+
+function Section() {
+    this.name = "";
+    this.maxSize = 0;
+    this.students = [];
+    this.currentSize = this.students.length;
+    this.teacher = "";
+    this.addStudent = function(Student) {
+        this.students += Student;
+    };
+    this.addTeacher= function(Teacher) {
+        this.teacher = Teacher;
+    };
+    this.removeStudent = function(id) {
+        for(var i = 0; i < this.students.length; i++) {
+            if(this.students[i].id === id) {
+                this.students = this.students.slice(0,i) + this.students.slice(i+1,this.students.length);
+            }
+        }
+    };
+    this.sectionSeatsRemaining = function() {
+        return this.maxSize - this.currentSize;
+    };
+    this.listInfo = function() {
+        var ret = "Name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
+        ret += "Seats Remaining: " + this.sectionSeatsRemaining() +" Students: " + this.students + " Teacher: " + this.teacher;
+        return ret;
+    }
+}
+
+var j = new Student();//need to do what I did w/ sect, format-wise!!!
+j.id = 9005;
+j.firstName = "Jane";
+j.lastName = "Doe";
+j.grade = 9;
+var g = new Student();
+g.id = 8006;
+g.firstName = "Geordi";
+g.lastName = "Doe";
+g.grade = 11;
+var t = new Teacher(1002, "Harry", "Potter", "DADA");
+
+var sect = new Section();
+sect.name = "testsect";
+sect.maxSize = 40;
+sect.currentSize = 2;
+sect.students = [j,g];//students show up as 'student' w/grade 0
+sect.teacher = t;
+
+var SECTIONS = [sect];//lists all sections
 
 function html() {
     //use length of sections to determine how many columns/rows needed?
@@ -19,6 +83,8 @@ function html() {
     for(var i = 0; i < len; i ++) {
         var stu = [];
         for (var x = 0; x < SECTIONS[i].students.length; x ++) {
+            //shows up as [object Object]
+            // because students are undefined
             stu += "<option value = '" + SECTIONS[i].students[x] + "'>" + SECTIONS[i].students[x] + "</option>";
         }
         returnVal += "<tr><th id = " + SECTIONS[i].name + ">";
@@ -36,10 +102,10 @@ function search() {
     var ln = document.getElementById("searchBarTwo").value;//last name
     var id = document.getElementById("searchBarThree").value;//id
     var arr = [];
-    for(var z in SECTIONS) {
-        for (var i = 0; i < z.students; i++) {
-            if(z.students[i].id === id || z.students[i].lastName === ln || z.students[i].firstName === fn) {
-                arr+=z.students[i];
+    for(var z =0; z < SECTIONS.length; z ++) {
+        for (var i = 0; i < SECTIONS[z].students.length; i++) {
+            if(SECTIONS[z].students[i].id === id || SECTIONS[z].students[i].lastName === ln || SECTIONS[z].students[i].firstName === fn) {
+                arr+= SECTIONS[z] + SECTIONS[z].students[i];//should return section + student
             }
         }
     }
@@ -47,60 +113,17 @@ function search() {
     if(arr.length>0) {
         document.getElementById('searched').innerHTML = arr.toString;
     } else {
+        /*
         //gets current 'searched' innerhtml
         var current = document.getElementById('searched').value;
         //finds first close bracket
         var stop = current.indexOf('>');
         //should ideally replace first close bracket with class to hide td
         document.getElementById('searched').innerHTML = current.substring(0, stop-1) + "class = 'secret'>" + current.substring(stop, current.length);
+        */
+        document.getElementById('searched').innerHTML = "No students found";
     }
 }
-
-var Person = new Object();
-Person.constructor = {
-    id : 0,
-    firstName : "",
-    lastName: ""
-};
-var Student = new Person();
-Student.constructor = {
-    grade: 0 //not letter grade, sondern 9-12
-};
-
-var Teacher = new Person();
-Teacher.constructor = {
-    subject : ""
-};
-
-var Section = new Object();
-Section.constructor = {
-    name: "",
-    maxSize: 0,
-    currentSize: 0,
-    students: [],
-    teacher: Teacher,
-    addStudent : function(Student) {
-        this.students += Student;
-    },
-    addTeacher: function(Teacher) {
-        this.teacher = Teacher;
-    },
-    removeStudent: function(id) {
-        for(var i = 0; i < this.students.length; i++) {
-            if(this.students[i].id === id) {
-                this.students = this.students.slice(0,i) + this.students.slice(i+1,this.students.length);
-            }
-        }
-    },
-    sectionSeatsRemaining: function() {
-        return this.maxSize - this.currentSize;
-    },
-    listInfo : function() {
-        var ret = "Name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
-        ret += " Students: " + this.students + " Teacher: " + this.teacher;
-        return ret;
-    }
-};
 
 function addStudentToSection(studentId, sectionId) {
     sectionId.addStudent(studentId);
@@ -115,7 +138,7 @@ function addaStudent(id, fname, lname, grade) {
     this.addStudent(stu);
 }
 
-function addTeacher(id, fname, lname, subject) {
+function addaTeacher(id, fname, lname, subject) {
     var teacher = new Teacher(id, fname, lname, subject);
     this.addTeacher(teacher);
 }
@@ -128,10 +151,3 @@ function addSection(sect, name, maxSize, currentSize, students, teacher) {
 function listSectionInfo(sectionId) {
     sectionId.listInfo();
 }
-
-/*
-var j = new Student(9005, "Jane", "Doe", 9);
-var g = new Student(8006, "Geordi", "Doe", 11);
-var t = new Student(1002, "Harry", "Potter", "DADA");
-var sect = new Section("testsect", 30, 2, [j, g], t);
-*/
