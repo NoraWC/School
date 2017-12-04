@@ -19,6 +19,7 @@ function Person() {
 function Student(){
     Person.call();
     this.grade = 0; //not letter grade; sondern 9-12
+    this.searched = false;
 }
 
 function Teacher(){
@@ -26,12 +27,13 @@ function Teacher(){
     this.subject = "";
 }
 
+
 function Section() {
     this.name = "";
     this.maxSize = 0;
     this.students = [];
     this.currentSize = this.students.length;
-    this.teacher = "";
+    //this.teacher = Teacher;
     this.addStudent = function(Student) {
         this.students += Student;
     };
@@ -50,29 +52,42 @@ function Section() {
     };
     this.listInfo = function() {
         var ret = "Name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
-        ret += "Seats Remaining: " + this.sectionSeatsRemaining() +" Students: " + this.students + " Teacher: " + this.teacher;
+        ret += " Seats Remaining: " + this.sectionSeatsRemaining() +" Students: " + this.students + " Teacher: " + this.teacher;
         return ret;
     }
 }
 
-var j = new Student();//need to do what I did w/ sect, format-wise!!!
+//all People are just [object Object]
+var j = new Student();
 j.id = 9005;
 j.firstName = "Jane";
 j.lastName = "Doe";
 j.grade = 9;
+j.searched = false;
+console.log(j);
+
 var g = new Student();
 g.id = 8006;
 g.firstName = "Geordi";
 g.lastName = "Doe";
 g.grade = 11;
-var t = new Teacher(1002, "Harry", "Potter", "DADA");
+g.searched = false;
+console.log(g);
+
+var t = new Teacher();
+t.id = 1002;
+t.firstName = "Harry";
+t.lastName = "Potter";
+t.subject = "DADA";
+console.log(t);
 
 var sect = new Section();
 sect.name = "testsect";
 sect.maxSize = 40;
 sect.currentSize = 2;
-sect.students = [j,g];//students show up as 'student' w/grade 0
+sect.students = [j,g];
 sect.teacher = t;
+console.log(sect);
 
 var SECTIONS = [sect];//lists all sections
 
@@ -82,14 +97,20 @@ function html() {
     var returnVal = "<table id = 'displaying'>";
     for(var i = 0; i < len; i ++) {
         var stu = [];
+
         for (var x = 0; x < SECTIONS[i].students.length; x ++) {
-            //shows up as [object Object]
-            // because students are undefined
-            stu += "<option value = '" + SECTIONS[i].students[x] + "'>" + SECTIONS[i].students[x] + "</option>";
+            var p = SECTIONS[i].students[x];
+            if(!p.searched) {
+                var place = 'secret';
+            } else {
+                place = 'stu';
+            }
+
+            stu += "<div class = '" + place + "' id = 'student" + p.id + "'>" + p.firstName + " " + p.lastName + "</div>";
         }
-        returnVal += "<tr><th id = " + SECTIONS[i].name + ">";
-        returnVal += "<td id = 'teacher'>" + SECTIONS[i].teacher +"</td>";
-        returnVal += "<td id = 'students'><select id = 'studentsList" + SECTIONS[i] + "'>" + stu + "</td>";
+        returnVal += "<tr><th id = " + SECTIONS[i].name + "><td id = 'name'>Section: " + SECTIONS[i].name + "</td>";
+        returnVal += "<td id = 'teacher'> Teacher: " + SECTIONS[i].teacher.lastName +"</td>";
+        returnVal += "<td id = 'students'> Students: " + stu + "</td>";
         returnVal += "<td id = 'searched'></td>";
         returnVal += "</tr>";
     }
@@ -104,14 +125,21 @@ function search() {
     var arr = [];
     for(var z =0; z < SECTIONS.length; z ++) {
         for (var i = 0; i < SECTIONS[z].students.length; i++) {
-            if(SECTIONS[z].students[i].id === id || SECTIONS[z].students[i].lastName === ln || SECTIONS[z].students[i].firstName === fn) {
-                arr+= SECTIONS[z] + SECTIONS[z].students[i];//should return section + student
+            var stu = SECTIONS[z].students[i];
+            if(stu.id == id && stu.lastName == ln && stu.firstName == fn) {
+                stu.searched = true;
+                arr += stu.firstName + " " + stu.lastName + ", id " + stu.id + " in " + SECTIONS[z].name;
+                var pigs = document.getElementById("student" + stu.id);
+
             }
         }
     }
-    //show/hide divs in table? (display = none; display = inline)
+
+
+    //idea: make div for each student; show/hide as search needs (display = none; display = inline)
+
     if(arr.length>0) {
-        document.getElementById('searched').innerHTML = arr.toString;
+        document.getElementById('searched').innerHTML = arr.toString();
     } else {
         /*
         //gets current 'searched' innerhtml
