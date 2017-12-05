@@ -31,11 +31,11 @@ function Teacher(){
 function Section() {
     this.name = "";
     this.maxSize = 0;
-    this.students = [];
+    this.students = [];//doesn't like to stay an array
     this.currentSize = this.students.length;
     //this.teacher = Teacher;
     this.addStudent = function(Student) {
-        this.students += Student;
+        this.students +=  Student;
     };
     this.addTeacher= function(Teacher) {
         this.teacher = Teacher;
@@ -57,7 +57,6 @@ function Section() {
     }
 }
 
-//all People are just [object Object]
 var j = new Student();
 j.id = 9005;
 j.firstName = "Jane";
@@ -99,19 +98,20 @@ function html() {
         var stu = [];
 
         for (var x = 0; x < SECTIONS[i].students.length; x ++) {
-            var p = SECTIONS[i].students[x];
-            if(!p.searched) {
-                var place = 'secret';
+            var anyStudent = SECTIONS[i].students[x];
+            var classify = '';
+            if(!anyStudent.searched) {
+                classify = 'secret';
             } else {
-                place = 'stu';
+                classify = 'stu';
             }
 
-            stu += "<div class = '" + place + "' id = 'student" + p.id + "'>" + p.firstName + " " + p.lastName + "</div>";
+            stu += "<div class = '" + classify + "' id = 'student" + anyStudent.id + "'>" + anyStudent.firstName + " " + anyStudent.lastName + "</div>";
         }
         returnVal += "<tr><th id = " + SECTIONS[i].name + "><td id = 'name'>Section: " + SECTIONS[i].name + "</td>";
         returnVal += "<td id = 'teacher'> Teacher: " + SECTIONS[i].teacher.lastName +"</td>";
-        returnVal += "<td id = 'students'> Students: " + stu + "</td>";
-        returnVal += "<td id = 'searched'></td>";
+        returnVal += "<td id = 'students'> Students: </td>";
+        returnVal += "<td id = 'searched'>" + stu + "</td>";
         returnVal += "</tr>";
     }
     returnVal += "</table>";
@@ -121,40 +121,31 @@ function html() {
 function search() {
     var fn = document.getElementById("searchBarOne").value;//first name
     var ln = document.getElementById("searchBarTwo").value;//last name
-    var id = document.getElementById("searchBarThree").value;//id
-    var arr = [];
-    for(var z =0; z < SECTIONS.length; z ++) {
-        for (var i = 0; i < SECTIONS[z].students.length; i++) {
-            var stu = SECTIONS[z].students[i];
-            if(stu.id == id && stu.lastName == ln && stu.firstName == fn) {
-                stu.searched = true;
-                arr += stu.firstName + " " + stu.lastName + ", id " + stu.id + " in " + SECTIONS[z].name;
-                var pigs = document.getElementById("student" + stu.id);
+    var id = parseInt(document.getElementById("searchBarThree").value);//id
+    var f = false;
 
+    for(var z =0; z < SECTIONS.length; z ++) {
+        var stu = SECTIONS[z].students.split(',');//doesn't work w/o adding students; nothing else works after adding students
+        for (var i = 0; i < stu.length; i++) {
+            var k = SECTIONS[z];
+            var b = k.students;
+            if(stu[i] === id ){ //&& stu.firstName === fn && stu.lastName === ln) {
+                SECTIONS[z].students[i].searched = true;
+                f = true;
+                html();
             }
         }
     }
-
-
-    //idea: make div for each student; show/hide as search needs (display = none; display = inline)
-
-    if(arr.length>0) {
-        document.getElementById('searched').innerHTML = arr.toString();
-    } else {
-        /*
-        //gets current 'searched' innerhtml
-        var current = document.getElementById('searched').value;
-        //finds first close bracket
-        var stop = current.indexOf('>');
-        //should ideally replace first close bracket with class to hide td
-        document.getElementById('searched').innerHTML = current.substring(0, stop-1) + "class = 'secret'>" + current.substring(stop, current.length);
-        */
+    if(!f) {
         document.getElementById('searched').innerHTML = "No students found";
     }
 }
 
 function addStudentToSection(studentId, sectionId) {
-    sectionId.addStudent(studentId);
+    //???? :(
+    sect.addStudent(studentId);
+    sect.listInfo();
+    console.log(sect.students);
 }
 
 function removeStudentFromSection(studentId, sectionId) {
