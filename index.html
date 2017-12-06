@@ -24,9 +24,8 @@
 <input title = 'student' id = 'stuInp2' type = 'text' value = 'students last name'>
 <input title = 'student' id = 'stuInp3' type = 'text' value = 'students id'>
 <input title = 'student' id = 'stuInp4' type = 'text' value = 'students grade'>
-<button id = 'studentInSect' onclick = 'var newStu = new Student(); newStu.id = document.getElementById("stuInp3").value; newStu.firstName = document.getElementById("stuInp1").value; newStu.lastName = document.getElementById("stuInp2").value; newStu.grade = document.getElementById("stuInp4").value;
-addStudentToSection(newStu, document.getElementById("sectInp").value);'>add stu to sect</button>
-<button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("stuInp").value, document.getElementById("sectInp").value);'>remove stu from sect</button>
+<button id = 'studentInSect' onclick = 'addStudentToSection();'>add stu to sect</button>
+<button id = 'studentOfSect' onclick = 'removeStudentFromSection(sect);'>remove stu from sect</button>
 <br>
 <div id = 'search'>
     <input title = 'First Name' id = 'searchBarOne' type = 'text' value = "FIRST NAME">

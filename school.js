@@ -31,21 +31,18 @@ function Teacher(){
 function Section() {
     this.name = "";
     this.maxSize = 0;
-    this.students = [];//doesn't like to stay an array
+    this.students = [];
     this.currentSize = this.students.length;
-    //this.teacher = Teacher;
     this.addStudent = function(Student) {
-        this.students +=  Student;
+        this.currentSize +=1;
+        this.students.push(Student);
     };
     this.addTeacher= function(Teacher) {
         this.teacher = Teacher;
     };
-    this.removeStudent = function(id) {
-        for(var i = 0; i < this.students.length; i++) {
-            if(this.students[i].id === id) {
-                this.students = this.students.slice(0,i) + this.students.slice(i+1,this.students.length);
-            }
-        }
+    this.removeStudent = function(stu) {
+        var z = this.students.indexOf(stu);
+        this.students.splice(z,1);
     };
     this.sectionSeatsRemaining = function() {
         return this.maxSize - this.currentSize;
@@ -63,7 +60,6 @@ j.firstName = "Jane";
 j.lastName = "Doe";
 j.grade = 9;
 j.searched = false;
-console.log(j);
 
 var g = new Student();
 g.id = 8006;
@@ -71,22 +67,29 @@ g.firstName = "Geordi";
 g.lastName = "Doe";
 g.grade = 11;
 g.searched = false;
-console.log(g);
+
+var b = new Student();
+b.id = 1001;
+b.firstName = "hi";
+b.lastName = "boo";
+b.grade = 12;
+b.searched = false;
 
 var t = new Teacher();
 t.id = 1002;
 t.firstName = "Harry";
 t.lastName = "Potter";
 t.subject = "DADA";
-console.log(t);
 
 var sect = new Section();
+
 sect.name = "testsect";
 sect.maxSize = 40;
-sect.currentSize = 2;
-sect.students = [j,g];
 sect.teacher = t;
 console.log(sect);
+sect.addStudent(j);
+sect.addStudent(g);
+sect.addStudent(b);
 
 var SECTIONS = [sect];//lists all sections
 
@@ -125,11 +128,9 @@ function search() {
     var f = false;
 
     for(var z =0; z < SECTIONS.length; z ++) {
-        var stu = SECTIONS[z].students.split(',');//doesn't work w/o adding students; nothing else works after adding students
+        var stu = SECTIONS[z].students;
         for (var i = 0; i < stu.length; i++) {
-            var k = SECTIONS[z];
-            var b = k.students;
-            if(stu[i] === id ){ //&& stu.firstName === fn && stu.lastName === ln) {
+            if(stu[i].id === id || (stu.firstName === fn && stu.lastName === ln)){
                 SECTIONS[z].students[i].searched = true;
                 f = true;
                 html();
@@ -138,33 +139,62 @@ function search() {
     }
     if(!f) {
         document.getElementById('searched').innerHTML = "No students found";
+        listSectionInfo(sect);
     }
 }
 
-function addStudentToSection(studentId, sectionId) {
-    //???? :(
-    sect.addStudent(studentId);
-    sect.listInfo();
-    console.log(sect.students);
+function addStudentToSection() {
+    var section = document.getElementById("sectInp");
+    var newStu = new Student();
+    newStu.firstName = document.getElementById("stuInp1").value;
+    newStu.lastName = document.getElementById("stuInp2").value;
+    newStu.id = parseInt(document.getElementById("stuInp3").value);
+    newStu.grade = document.getElementById("stuInp4").value;
+    section.addStudent(newStu);
 }
 
-function removeStudentFromSection(studentId, sectionId) {
-    sectionId.removeStudent(studentId);
+function removeStudentFromSection(section) {
+    //var section = document.getElementById("sectInp").value;
+    var fn = document.getElementById("stuInp1").value;
+    var ln = document.getElementById("stuInp2").value;
+    var d = document.getElementById("stuInp3").value;
+    var g = document.getElementById("stuInp4").value;
+
+    for(var i =0; i < section.students.length; i++) {
+        var f = section.students[i].firstName;
+        if (f == fn && section.students[i].lastName == ln &&
+            section.students[i].id == parseInt(d) && section.students[i].grade == parseInt(g)) {
+            section.removeStudent(section.students[i]);
+        }
+    }
 }
 
 function addaStudent(id, fname, lname, grade) {
-    var stu = new Student(id, fname, lname, grade);
-    this.addStudent(stu);
+    var stu = new Student();
+    stu.id = id;
+    stu.firstName = fname;
+    stu.lastName = lname;
+    stu.grade = grade;
+    return stu;
 }
 
 function addaTeacher(id, fname, lname, subject) {
-    var teacher = new Teacher(id, fname, lname, subject);
-    this.addTeacher(teacher);
+    var teacher = new Teacher();
+    teacher.id = id;
+    teacher.firstName = fname;
+    teacher.lastName = lname;
+    teacher.subject = subject;
+    return teacher;
 }
 
 function addSection(sect, name, maxSize, currentSize, students, teacher) {
-    sect = new Section(name, maxSize, currentSize, students, teacher);
-    SECTIONS += sect;
+    sect = new Section();
+    sect.name = name;
+    sect.maxSize = maxSize;
+    sect.currentSize = currentSize;
+    sect.students = students;
+    sect.teacher = teacher;
+    SECTIONS.push(sect);
     return sect;
 }
 function listSectionInfo(sectionId) {
