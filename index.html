@@ -13,7 +13,9 @@
 
 <body>
 <div id = 'displayTable'><script>html();</script></div>
-
+<br>
+<div id = 'boo'></div>
+<button id = 'disp' onclick = 'document.getElementById("boo").innerHTML = listSectionInfo(sect);'>display info</button>
 <button id = 'newSection' onclick = 'addSection();'>add section</button>
 <button id = 'newStudent' onclick = 'addaStudent();'>add student</button>
 <button id = 'newTeacher' onclick = 'addaTeacher();'>add teacher</button>
@@ -24,15 +26,10 @@
 <input title = 'student' id = 'stuInp2' type = 'text' value = 'students last name'>
 <input title = 'student' id = 'stuInp3' type = 'text' value = 'students id'>
 <input title = 'student' id = 'stuInp4' type = 'text' value = 'students grade'>
-<button id = 'studentInSect' onclick = 'addStudentToSection();'>add stu to sect</button>
-<button id = 'studentOfSect' onclick = 'removeStudentFromSection(sect);'>remove stu from sect</button>
-<br>
-<div id = 'search'>
-    <input title = 'First Name' id = 'searchBarOne' type = 'text' value = "FIRST NAME">
-    <input title = 'Last Name' id = 'searchBarTwo' type = 'text' value = "LAST NAME">
-    <input title = 'ID' id = 'searchBarThree' type = 'text' value = "ID">
-    <button id = 'searchbutton' onclick="search();">search</button>
-    <div id = 'displaySearchedStudent'></div>
-</div>
+<button id = 'studentInSect' onclick = 'addStudentToSection(document.getElementById("sectInp").value);'>add stu to sect</button>
+<button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("sectInp").value);'>remove stu from sect</button>
+<button id = 'searchbutton' onclick="search();">search</button>
+<div id = 'displaySearchedStudent'></div>
+
 </body>
 </html>
