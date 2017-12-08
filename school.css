@@ -7,5 +7,12 @@
 }
 
 table {
-    border: 1px black;
+    border: 1px black solid;
+    padding: 5px;
+    margin-top: 5px;
+    text-overflow-mode: wrap;
+    column-width: 800px;
+    background-color: inherit;
+    margin-left:33%;
+    margin-right:33%;
 }

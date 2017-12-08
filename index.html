@@ -14,22 +14,21 @@
 <body>
 <div id = 'displayTable'><script>html();</script></div>
 <br>
-<div id = 'boo'></div>
-<button id = 'disp' onclick = 'document.getElementById("boo").innerHTML = listSectionInfo(sect);'>display info</button>
-<button id = 'newSection' onclick = 'addSection();'>add section</button>
+<button id = 'disp' onclick = 'document.getElementById("boo").innerHTML = listSectionInfo(document.getElementById("sectInp").value);'>display info</button>
+<button id = 'newSection' onclick = 'addSection(prompt("ID: "),prompt("Name: "), prompt("Max Size: "), prompt("Current Size: "), prompt("Students: "), prompt("Teacher: "));'>add section</button>
 <button id = 'newStudent' onclick = 'addaStudent();'>add student</button>
 <button id = 'newTeacher' onclick = 'addaTeacher();'>add teacher</button>
 <br>
 <input title = 'section' id = 'sectInp' type = 'text' value='section'>
 <!--try to do this w/ alerts?-->
-<input title = 'student' id = 'stuInp1' type = 'text' value = 'students first name'>
-<input title = 'student' id = 'stuInp2' type = 'text' value = 'students last name'>
-<input title = 'student' id = 'stuInp3' type = 'text' value = 'students id'>
-<input title = 'student' id = 'stuInp4' type = 'text' value = 'students grade'>
+<input title = 'student' id = 'stuInp1' type = 'text' value = 'first name'>
+<input title = 'student' id = 'stuInp2' type = 'text' value = 'last name'>
+<input title = 'student' id = 'stuInp3' type = 'text' value = 'id'>
+<input title = 'student' id = 'stuInp4' type = 'text' value = 'grade/subj'>
 <button id = 'studentInSect' onclick = 'addStudentToSection(document.getElementById("sectInp").value);'>add stu to sect</button>
 <button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("sectInp").value);'>remove stu from sect</button>
 <button id = 'searchbutton' onclick="search();">search</button>
 <div id = 'displaySearchedStudent'></div>
-
+<div id = 'searched'></div>
 </body>
 </html>
