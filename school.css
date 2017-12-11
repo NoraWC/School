@@ -16,3 +16,8 @@ table {
     margin-left:33%;
     margin-right:33%;
 }
+td {
+    text-overflow-mode: wrap;
+    border: 1px black solid;
+    margin: 0;
+}

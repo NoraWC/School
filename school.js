@@ -71,11 +71,12 @@ j.searched = false;
 STUDENTS.push(j);
 
 var h = new Student();
-h.id = 7777;
+h.id = 7764;
 h.firstName = "hh";
 h.lastName = "r";
 h.grade = 9;
 h.searched = false;
+STUDENTS.push(h);
 
 var g = new Student();
 g.id = 8006;
@@ -101,15 +102,16 @@ t.subject = "DADA";
 TEACHERS.push(t);
 console.log(h, g, j);
 console.log(t);
-/*
+
 var sect = new Section();
-sect.id = 'sect';
+sect.id = 'testsect';
 sect.name = "testsect";
 sect.maxSize = 40;
 sect.teacher = t;
 console.log(sect);
 sect.addStudent(j);
 sect.addStudent(b);
+SECTIONS.push(sect);
 
 
 var k = new Teacher();
@@ -126,14 +128,15 @@ u.grade = "0";
 
 var other = new Section();
 other.id = 'other';
-other.name = "two";
+other.name = "other";
 other.maxSize = 40;
 SECTIONS.push(other);
 other.teacher = k;
 other.addStudent(u);
 other.addStudent(g);
-console.log(other);
-*/
+//console.log(other);
+
+
 function html() {
     //use length of sections to determine how many columns/rows needed
     var len = SECTIONS.length;
@@ -152,8 +155,8 @@ function html() {
             stu+="<div class = '"+classify+"' id = 'student"+anyStu.id+"'>"+anyStu.firstName+" "+anyStu.lastName+" "+anyStu.id+"</div>";
         }
         returnVal += "<tr><th id = " + SECTIONS[i].id + "><td id = 'name'>Section: " + SECTIONS[i].name + "</td>";
-        returnVal += "<td id = '" + SECTIONS[i].id + "teacher'> Teacher: " + SECTIONS[i].teacher.lastName +"</td>";
-        returnVal += "<td id = '" + SECTIONS[i].id + "students'> Students: </td>";
+        returnVal += "<td id = '" + SECTIONS[i].id + "teacher'> Teacher:<br>Mx. " + SECTIONS[i].teacher.lastName +"</td>";
+        returnVal += "<td id = '" + SECTIONS[i].id + "students'> Students:<br> </td>";
         returnVal += "</tr>";
     }
     returnVal += "</table>";
@@ -188,18 +191,23 @@ function search() {
 }
 
 function val(id, type) {
+
     var arr = [];
     if (type === "section") {
+        id = id.toString();
         arr = SECTIONS;
     } else if (type === "student") {
+        id = parseInt(id);
         arr = STUDENTS;
     } else if (type === "teacher") {
+        id = parseInt(id);
         arr = TEACHERS;
     } else {
         return 0;
     }
     for (var geriatric = 0; geriatric < arr.length; geriatric ++) {
-        if(arr[geriatric].id == id) {
+        var foxes = arr[geriatric].id;
+        if( foxes === id) {
             id = arr[geriatric];
         }
     }
@@ -240,7 +248,7 @@ function addaStudent() {
     return newStu;
 }
 
-function addaTeacher(id, fname, lname, subject) {
+function addaTeacher() {
     var teacher = new Teacher();
     teacher.id = parseInt(document.getElementById('stuInp3').value);
     teacher.firstName = document.getElementById('stuInp1').value;
@@ -254,12 +262,12 @@ function addaTeacher(id, fname, lname, subject) {
 
 function addSection(sect, name, maxSize, currentSize, students, teacher) {
     sect = new Section();
-    sect.id = sect;
-    sect.name = sect;
+    sect.id = name;
+    sect.name = name;
     sect.maxSize = maxSize;
     sect.currentSize = currentSize;
 
-    students = students.split(", ");
+    students = students.split(", ");//7777 doesn't seem to work?
     for(var z = 0; z< students.length; z++) {
         students[z] = val(students[z], 'student');
         sect.students.push(students[z]);
@@ -267,24 +275,24 @@ function addSection(sect, name, maxSize, currentSize, students, teacher) {
     sect.teacher = val(teacher, 'teacher');
     SECTIONS.push(sect);
     console.log(SECTIONS);
+    html();
     return sect;
 
 }
 function listSectionInfo(sectionId) {
+    //html();
     var sec = sectionId;
-    //validation doesn't work, id always = Section (w/o quote)
     sectionId = val(sectionId, 'section');
-    var tea = "Teacher:<br>Mx.";
+    var tea = "Teacher:<br>Mx. ";
     tea += sectionId.teacher.lastName + ",  " + sectionId.teacher.subject;
     document.getElementById(sec + 'teacher').innerHTML = tea;
 
     var stu = " Students:";
     for (var boo = 0; boo < sectionId.students.length; boo++) {
         stu += "<br>" + sectionId.students[boo].firstName + " " + sectionId.students[boo].lastName;
-        stu += " ID: " + sectionId.students[boo].id;
-        stu += " Grade: " + sectionId.students[boo].grade;
+        stu += ", ID " + sectionId.students[boo].id;
+        stu += ", Grade " + sectionId.students[boo].grade;
         document.getElementById(sec + 'students').innerHTML = stu;
     }
 
-    //return sectionId.listInfo() + tea + stu;
 }
