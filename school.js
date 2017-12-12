@@ -70,14 +70,6 @@ j.grade = 9;
 j.searched = false;
 STUDENTS.push(j);
 
-var h = new Student();
-h.id = 7764;
-h.firstName = "hh";
-h.lastName = "r";
-h.grade = 9;
-h.searched = false;
-STUDENTS.push(h);
-
 var g = new Student();
 g.id = 8006;
 g.firstName = "Geordi";
@@ -100,7 +92,7 @@ t.firstName = "Harry";
 t.lastName = "Potter";
 t.subject = "DADA";
 TEACHERS.push(t);
-console.log(h, g, j);
+console.log(g, j);
 console.log(t);
 
 var sect = new Section();
@@ -124,7 +116,7 @@ var u = new Student();
 u.id = 9999;
 u.firstName = "o";
 u.lastName = "i";
-u.grade = "0";
+u.grade = 0;
 
 var other = new Section();
 other.id = 'other';
@@ -134,7 +126,7 @@ SECTIONS.push(other);
 other.teacher = k;
 other.addStudent(u);
 other.addStudent(g);
-//console.log(other);
+console.log(other);
 
 
 function html() {
@@ -152,24 +144,21 @@ function html() {
             } else {
                 classify = 'showStudent';
             }
-            stu+="<div class = '"+classify+"' id = 'student"+anyStu.id+"'>"+anyStu.firstName+" "+anyStu.lastName+" "+anyStu.id+"</div>";
+            stu+="<div class = '"+classify+"' id = 'student"+anyStu.id+"'>Name: "+anyStu.firstName+" "+anyStu.lastName+" ID: "+anyStu.id+" Grade: " + anyStu.grade + "</div>";
         }
-        returnVal += "<tr><th id = " + SECTIONS[i].id + "><td id = 'name'>Section: " + SECTIONS[i].name + "</td>";
-        returnVal += "<td id = '" + SECTIONS[i].id + "teacher'> Teacher:<br>Mx. " + SECTIONS[i].teacher.lastName +"</td>";
-        returnVal += "<td id = '" + SECTIONS[i].id + "students'> Students:<br> </td>";
+        returnVal += "<tr><td id = 'name'><div class = 'fancy'>Section:</div>" + SECTIONS[i].name + "</td>";
+        returnVal += "<td id = '" + SECTIONS[i].id + "teacher'><div class = 'fancy'>Teacher:</div>Mx. " + SECTIONS[i].teacher.lastName +"</td>";
+        returnVal += "<td class = 'students' id = '" + SECTIONS[i].id + "students'><div class = 'fancy'>Students:</div>" + stu + "</td>";
         returnVal += "</tr>";
     }
     returnVal += "</table>";
     document.getElementById("displayTable").innerHTML = returnVal;
 }
 
-function search() {
-    var fn = document.getElementById("stuInp1").value;//first name
-    var ln = document.getElementById("stuInp2").value;//last name
-    var id = parseInt(document.getElementById("stuInp3").value);//id
-    var gr = parseInt(document.getElementById("stuInp4").value);
+function search(fn, ln, id, gr) {
     var f = false;
-    var searched = [];
+    id = parseInt(id);
+    gr = parseInt(gr);
     for(var z =0; z < SECTIONS.length; z ++) {
         var stu = SECTIONS[z].students;
         for (var i = 0; i < stu.length; i++) {
@@ -177,16 +166,13 @@ function search() {
                 SECTIONS[z].students[i].searched = true;
                 f = true;
                 html();
-                searched += SECTIONS[z].students[i];
             }
         }
     }
-
-    if(!f) {
-        document.getElementById('searched').innerHTML = "No students found";
-        listSectionInfo(sect);
+    if(f) {
+        html();
     } else {
-        document.getElementById('searched').innerHTML = searched;
+        document.getElementById("error").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and check your spelling."
     }
 }
 
@@ -215,6 +201,7 @@ function val(id, type) {
 }
 
 function addStudentToSection(section, stu) {
+    stu = val(stu, "student");
     section = val(section, 'section');
     section.addStudent(stu);
 }
@@ -254,14 +241,19 @@ function addaTeacher() {
     teacher.firstName = document.getElementById('stuInp1').value;
     teacher.lastName = document.getElementById('stuInp2').value;
     teacher.subject = document.getElementById('stuInp4').value;
+    var sect = document.getElementById('sectInp').value;
+    sect = val(sect, "section");
     TEACHERS.push(teacher);
     console.log(TEACHERS);
     console.log(teacher);
+    sect.addTeacher(teacher);
+    console.log(sect);
+    html();
     return teacher;
 }
 
-function addSection(sect, name, maxSize, currentSize, students, teacher) {
-    sect = new Section();
+function addSection(name, maxSize, currentSize, students, teacher) {
+    var sect = new Section();
     sect.id = name;
     sect.name = name;
     sect.maxSize = maxSize;
@@ -279,20 +271,14 @@ function addSection(sect, name, maxSize, currentSize, students, teacher) {
     return sect;
 
 }
-function listSectionInfo(sectionId) {
-    //html();
-    var sec = sectionId;
-    sectionId = val(sectionId, 'section');
-    var tea = "Teacher:<br>Mx. ";
-    tea += sectionId.teacher.lastName + ",  " + sectionId.teacher.subject;
-    document.getElementById(sec + 'teacher').innerHTML = tea;
-
-    var stu = " Students:";
-    for (var boo = 0; boo < sectionId.students.length; boo++) {
-        stu += "<br>" + sectionId.students[boo].firstName + " " + sectionId.students[boo].lastName;
-        stu += ", ID " + sectionId.students[boo].id;
-        stu += ", Grade " + sectionId.students[boo].grade;
-        document.getElementById(sec + 'students').innerHTML = stu;
+function listSectionInfo() {
+    for (var g = 0; g < STUDENTS.length; g++) {
+        search(STUDENTS[g].firstName, STUDENTS[g].lastName, STUDENTS[g].id, STUDENTS[g].grade);
+    }
+    for(var z = 0; z < SECTIONS.length; z++) {
+        var sectionId = SECTIONS[z];
+        var sec = SECTIONS[z].name;
+        document.getElementById(sec + 'teacher').innerHTML += ", " + sectionId.teacher.subject;
     }
 
 }

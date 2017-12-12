@@ -9,8 +9,7 @@
 table {
     border: 1px black solid;
     padding: 5px;
-    margin-top: 5px;
-    text-overflow-mode: wrap;
+    /*text-overflow-mode: wrap;*/
     column-width: 800px;
     background-color: inherit;
     margin-left:33%;
@@ -20,4 +19,16 @@ td {
     text-overflow-mode: wrap;
     border: 1px black solid;
     margin: 0;
+}
+.showStudent {
+}
+
+.fancy {
+    background-color: darkkhaki;
+    padding-top: 0;
+
+}
+
+.students {
+    padding-bottom: 18px;
 }
