@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
+    <meta charset='UTF-8'>
     <title>Nora Coates Objects in a School</title>
-    <script src = "school.js"></script>
+    <script src = 'school.js'></script>
     <link rel = 'stylesheet' href = 'school.css'>
 </head>
 
@@ -11,23 +11,26 @@
  table w/ elements: students, teachers, sections
  interface to add new students, teachers, sections -->
 
+<!-- show/hide div sections for adding students, etc (text fields AND buttons) -->
+
 <body>
+
+
+
 <div id = 'displayTable'><script>html();</script></div>
 <br>
 <button id = 'disp' onclick = 'listSectionInfo();'>display info</button>
-<button id = 'newSection' onclick = 'addSection(prompt("Section Name: "), prompt("Max Size: "), prompt("Current Size: "), prompt("Students: "), prompt("Teacher: "));'>add section</button>
+<button id = 'newSection' onclick = 'addSection();'>add section</button>
 <button id = 'newStudent' onclick = 'addaStudent();'>add student</button>
 <button id = 'newTeacher' onclick = 'addaTeacher();'>add teacher</button>
 <br>
-<input title = 'section' id = 'sectInp' type = 'text' value='section'>
-<!--try to do this w/ alerts?-->
-<input title = 'student' id = 'stuInp1' type = 'text' value = 'first name'>
-<input title = 'student' id = 'stuInp2' type = 'text' value = 'last name'>
-<input title = 'student' id = 'stuInp3' type = 'text' value = 'id'>
-<input title = 'student' id = 'stuInp4' type = 'text' value = 'grade/subj'>
+
+
 <button id = 'studentInSect' onclick = 'addStudentToSection(document.getElementById("sectInp").value, document.getElementById("stuInp3").value);'>add stu to sect</button>
 <button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("sectInp").value);'>remove stu from sect</button>
-<button id = 'searchbutton' onclick="search(prompt('First Name:'), prompt('Last Name:'), prompt('ID:'), prompt('Grade:'));">search</button>
-<div id = "error"></div>
+<!---->
+<button id = 'searchbutton' onclick='search(prompt("First Name:"), prompt("Last Name:"), prompt("ID:"), prompt("Grade:"));'>search</button>
+<div id = 'error'></div>
+
 </body>
 </html>

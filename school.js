@@ -132,17 +132,49 @@ console.log(other);
 function html() {
     //use length of sections to determine how many columns/rows needed
     var len = SECTIONS.length;
-    var returnVal = "<table id = 'displaying'>";
+    var returnVal = "<table>";
+    var arr = ["'student", "'teacher"];
+    var vals = ["'first name", "'last name", "'id"];
+    var extra = ["'grade", "'subject"];
+    var fire = "secret";
+    var classy = "show";
+    var divs = "";
+    for (var z = 0; z < 2; z ++) {
+        divs += "<td><div id = " + arr[z] + "Inputs'>";
+        vals.push(extra[z]);
+
+        var fin = "";
+        fin += "<button id = 'show' onclick = \'fire = " + classy + "'></button>";
+        for(var y = 1; y < 5; y++) {
+
+            fin += "<input title = "+ arr[z] + "Inp" + y + "' class = '";
+            if(!test) {
+                classy = 'secret';
+            } else {
+                classy = 'show';
+            }
+            fin += "' id = " + arr[z] + "Inp" + y + "' type = 'text' value = " + vals[y-1] + "'>";
+        }
+        divs += fin + "</div></td>";
+    }
+
+    var bleh = ["'name/id", "'max size", "'current size", "'students", "'teacher"];
+    divs += "<td><div>";
+    divs += "<button id = 'showsection' onclick = \' fire = " + classy+ "'</button>";
+    for (var f = 1; f < 6; f ++) {
+        divs += "<input title = 'sectionInp" + f + "' class = '" + fire + "' id = 'sectionInp" + f + "' type = 'text' value = " + bleh[f-1] + "'>";
+    }
+     returnVal += "<tr>" + divs + "</div></td></tr>";
+
     for(var i = 0; i < len; i ++) {
         var stu = [];
-
         for (var x = 0; x < SECTIONS[i].students.length; x ++) {
             var anyStu = SECTIONS[i].students[x];
             var classify = '';
             if(!anyStu.searched) {
                 classify = 'secret';
             } else {
-                classify = 'showStudent';
+                classify = 'show';
             }
             stu+="<div class = '"+classify+"' id = 'student"+anyStu.id+"'>Name: "+anyStu.firstName+" "+anyStu.lastName+" ID: "+anyStu.id+" Grade: " + anyStu.grade + "</div>";
         }

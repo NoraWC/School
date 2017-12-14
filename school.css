@@ -6,6 +6,10 @@
     display: none;
 }
 
+.show {
+    display : inline;
+}
+
 table {
     border: 1px black solid;
     padding: 5px;
@@ -20,8 +24,7 @@ td {
     border: 1px black solid;
     margin: 0;
 }
-.showStudent {
-}
+
 
 .fancy {
     background-color: darkkhaki;
