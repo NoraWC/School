@@ -12,7 +12,6 @@
 
 table {
     border: 1px black solid;
-    padding: 5px;
     /*text-overflow-mode: wrap;*/
     column-width: 800px;
     background-color: inherit;
@@ -22,7 +21,6 @@ table {
 td {
     text-overflow-mode: wrap;
     border: 1px black solid;
-    margin: 0;
 }
 
 
@@ -34,4 +32,16 @@ td {
 
 .students {
     padding-bottom: 18px;
+}
+
+#studentInputs {
+    size: 131px 113px;
+    margin-top: -14%;
+    height : 100%;
+}
+
+#teacherInputs {
+    size: 131px 113px;
+    margin-top: -14%;
+    height : 100%;
 }
