@@ -19,17 +19,56 @@
 
 <div id = 'displayTable'><script>html();</script></div>
 <br>
-<button id = 'disp' onclick = 'listSectionInfo();'>display info</button>
-<button id = 'newSection' onclick = 'addSection();'>add section</button>
-<button id = 'newStudent' onclick = 'addaStudent();'>add student</button>
-<button id = 'newTeacher' onclick = 'addaTeacher();'>add teacher</button>
 <br>
 
 
-<button id = 'studentInSect' onclick = 'addStudentToSection(document.getElementById("sectInp").value, document.getElementById("stuInp3").value);'>add stu to sect</button>
-<button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("sectInp").value);'>remove stu from sect</button>
+<div id = 'addingStudents'>
+    <input type = text title = 'addStuName1' id = 'addStuName1' value = 'First Name'>
+    <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
+    <input type = text title = 'addStuId' id = 'addStuId' value = 'ID'>
+    <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
+    <button onclick = 'addaStudent()'>dew it</button>
+</div>
+
+<div id = 'addingTeachers'>
+    <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
+    <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
+    <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
+    <button onclick = 'addaTeacher()'>just do it</button>
+</div>
+
+<div id = 'addingSect'>
+    <input type = text title = 'addSect1' id = 'addSectName' value = 'Section Name'>
+    <input type = text title = 'addSect1' id = 'addSectMax' value = 'Max Size'>
+    <script>
+        var fin = "<select id = 'students'>";
+        for (var i = 0; i < STUDENTS.length; i ++) {
+            fin+= "<option id = 'student" + i + "' value = '" + STUDENTS[i].firstName + STUDENTS[i].lastName + "'";
+        }
+        fin+= "</select>";
+        document.getElementById('addingSect').innerHTML += fin;
+
+        var ret = "<select id = 'students'>";
+        for (var x = 0; x < STUDENTS.length; x ++) {
+            ret += "<option id = 'student" + x + "' value = '" + STUDENTS[x].firstName + " " + STUDENTS[x].lastName + "'";
+        }
+        ret += "</select>";
+        document.getElementById('addingSect').innerHTML += ret;
+    </script>
+    <button onclick = 'addSection()'></button>
+</div>
+
+
+<button id = 'studentInSect' >
+    add stu to sect
+</button>
+<button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("sectInp").value);'>
+    remove stu from sect
+</button>
 <!---->
-<button id = 'searchbutton' onclick='search(prompt("First Name:"), prompt("Last Name:"), prompt("ID:"), prompt("Grade:"));'>search</button>
+<button id = 'searchbutton' onclick='search(prompt("First Name:"), prompt("Last Name:"), prompt("ID:"), prompt("Grade:"));'>
+    search
+</button>
 <div id = 'error'></div>
 
 </body>

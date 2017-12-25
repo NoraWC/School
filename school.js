@@ -22,7 +22,7 @@ function Person() {
     this.lastName= "";
 }
 
-function Student(){
+function Student() {
     Person.call();
     this.grade = 0; //not letter grade; sondern 9-12
     this.searched = false;
@@ -62,73 +62,6 @@ function Section() {
     }
 }
 
-var j = new Student();
-j.id = 9005;
-j.firstName = "Jane";
-j.lastName = "Doe";
-j.grade = 9;
-j.searched = false;
-STUDENTS.push(j);
-
-var g = new Student();
-g.id = 8006;
-g.firstName = "Geordi";
-g.lastName = "Doe";
-g.grade = 11;
-g.searched = false;
-STUDENTS.push(g);
-
-var b = new Student();
-b.id = 1001;
-b.firstName = "hi";
-b.lastName = "boo";
-b.grade = 12;
-b.searched = false;
-STUDENTS.push(b);
-
-var t = new Teacher();
-t.id = 1002;
-t.firstName = "Harry";
-t.lastName = "Potter";
-t.subject = "DADA";
-TEACHERS.push(t);
-console.log(g, j);
-console.log(t);
-
-var sect = new Section();
-sect.id = 'testsect';
-sect.name = "testsect";
-sect.maxSize = 40;
-sect.teacher = t;
-console.log(sect);
-sect.addStudent(j);
-sect.addStudent(b);
-SECTIONS.push(sect);
-
-
-var k = new Teacher();
-k.id = 0040;
-k.firstName = "ll";
-k.lastName = "nnn";
-k.subject = "Running";
-
-var u = new Student();
-u.id = 9999;
-u.firstName = "o";
-u.lastName = "i";
-u.grade = 0;
-
-var other = new Section();
-other.id = 'other';
-other.name = "other";
-other.maxSize = 40;
-SECTIONS.push(other);
-other.teacher = k;
-other.addStudent(u);
-other.addStudent(g);
-console.log(other);
-
-
 function showTeacher(bool) {
     var classy = 'secret';
     var returnVal = '';
@@ -158,14 +91,11 @@ function showStudent(bool) {
 }
 
 
-
-
 function html() {
     //use length of sections to determine how many columns/rows needed
     var len = SECTIONS.length;
     var returnVal = "<table>";
     var divs = "";
-
 
 
     var bleh = ["'name/id", "'max size", "'current size", "'students", "'teacher"];
@@ -277,10 +207,10 @@ function removeStudentFromSection(section) {
 
 function addaStudent() {
     var newStu = new Student();
-    newStu.firstName = document.getElementById("stuInp1").value;
-    newStu.lastName = document.getElementById("stuInp2").value;
-    newStu.id = parseInt(document.getElementById("stuInp3").value);
-    newStu.grade = parseInt(document.getElementById("stuInp4").value);
+    newStu.firstName = document.getElementById("addStuName1").value;
+    newStu.lastName = document.getElementById("addStuName2").value;
+    newStu.id = parseInt(document.getElementById("addStuId").value);
+    newStu.grade = parseInt(document.getElementById("addStuGrade").value);
     STUDENTS.push(newStu);
     console.log(STUDENTS);
     console.log(newStu);
@@ -289,29 +219,21 @@ function addaStudent() {
 
 function addaTeacher() {
     var teacher = new Teacher();
-    teacher.id = parseInt(document.getElementById('stuInp3').value);
-    teacher.firstName = document.getElementById('stuInp1').value;
-    teacher.lastName = document.getElementById('stuInp2').value;
-    teacher.subject = document.getElementById('stuInp4').value;
-    var sect = document.getElementById('sectInp').value;
-    sect = val(sect, "section");
+    teacher.firstName = document.getElementById('addTeaName1').value;
+    teacher.lastName = document.getElementById('addTeaName2').value;
+    teacher.subject = document.getElementById('addTeaSubj').value;
     TEACHERS.push(teacher);
     console.log(TEACHERS);
     console.log(teacher);
-    sect.addTeacher(teacher);
-    console.log(sect);
-    html();
     return teacher;
 }
 
-function addSection(name, maxSize, currentSize, students, teacher) {
+function addSection() {
     var sect = new Section();
-    sect.id = name;
-    sect.name = name;
-    sect.maxSize = maxSize;
-    sect.currentSize = currentSize;
-
-    students = students.split(", ");//7777 doesn't seem to work?
+    sect.name = document.getElementById('addSectName');
+    sect.maxSize = document.getElementById('addSectMax');
+    sect.currentSize =
+    students = students.split(", ");
     for(var z = 0; z< students.length; z++) {
         students[z] = val(students[z], 'student');
         sect.students.push(students[z]);
