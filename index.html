@@ -55,9 +55,33 @@
         ret += "</select>";
         document.getElementById('addingSect').innerHTML += ret;
     </script>
-    <button onclick = 'addSection()'></button>
+    <button onclick = 'addSection()'>go</button>
 </div>
 
+
+<div id = 'searchMain'>
+    <select id = 'searchSelect'>
+        <option id = 'stu'>Student</option>
+        <option id = 'tea'>Teacher</option>
+        <option id = 'sec'>Section</option>
+    </select>
+    <script>
+        if(document.getElementById('searchSelect').value = 'stu') {
+            //display stu
+        } else if (document.getElementById('searchSelect').value = 'tea') {
+            //display tea
+        } else {
+            //display sec
+        }
+    </script>
+
+    <div id = 'searchStu'>
+    </div>
+    <div id = 'searchTea'>
+    </div>
+    <div id = 'searchSec'>
+    </div>
+</div>
 
 <button id = 'studentInSect' >
     add stu to sect
