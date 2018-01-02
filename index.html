@@ -3,7 +3,9 @@
 <head>
     <meta charset='UTF-8'>
     <title>Nora Coates Objects in a School</title>
+    <script src = 'objects.js'></script>
     <script src = 'school.js'></script>
+    <script src = 'interface.js'></script>
     <link rel = 'stylesheet' href = 'school.css'>
 </head>
 
@@ -15,7 +17,18 @@
 
 <body>
 
-
+<div id = 'searchMain'>
+    <select id = 'searchSelect'>
+        <option id = 'stu'>Student</option>
+        <option id = 'tea'>Teacher</option>
+        <option id = 'sec'>Section</option>
+    </select>
+    <div id = 'searchbars'>
+    </div>
+    <button id = 'searchgo' onclick = 'search(val1, val2, val3, val4, val5);'></button>
+    <div id = 'searchDisplay'>
+    </div>
+</div>
 
 <div id = 'displayTable'><script>html();</script></div>
 <br>
@@ -27,14 +40,14 @@
     <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
     <input type = text title = 'addStuId' id = 'addStuId' value = 'ID'>
     <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
-    <button onclick = 'addaStudent()'>dew it</button>
+    <button onclick = 'addaStudent();'>dew it</button>
 </div>
 
 <div id = 'addingTeachers'>
     <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
     <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
     <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
-    <button onclick = 'addaTeacher()'>just do it</button>
+    <button onclick = 'addaTeacher();'>just do it</button>
 </div>
 
 <div id = 'addingSect'>
@@ -48,52 +61,17 @@
         fin+= "</select>";
         document.getElementById('addingSect').innerHTML += fin;
 
-        var ret = "<select id = 'students'>";
-        for (var x = 0; x < STUDENTS.length; x ++) {
-            ret += "<option id = 'student" + x + "' value = '" + STUDENTS[x].firstName + " " + STUDENTS[x].lastName + "'";
+        var ret = "<select id = 'teacher'>";
+        for (var x = 0; x < TEACHERS.length; x ++) {
+            ret += "<option id = 'teacher" + x + "' value = '" + TEACHERS[x].firstName + " " + TEACHERS[x].lastName + "'";
         }
         ret += "</select>";
         document.getElementById('addingSect').innerHTML += ret;
     </script>
-    <button onclick = 'addSection()'>go</button>
+    <button onclick = 'addSection();'>go</button>
 </div>
 
 
-<div id = 'searchMain'>
-    <select id = 'searchSelect'>
-        <option id = 'stu'>Student</option>
-        <option id = 'tea'>Teacher</option>
-        <option id = 'sec'>Section</option>
-    </select>
-    <script>
-        if(document.getElementById('searchSelect').value = 'stu') {
-            //display stu
-        } else if (document.getElementById('searchSelect').value = 'tea') {
-            //display tea
-        } else {
-            //display sec
-        }
-    </script>
-
-    <div id = 'searchStu'>
-    </div>
-    <div id = 'searchTea'>
-    </div>
-    <div id = 'searchSec'>
-    </div>
-</div>
-
-<button id = 'studentInSect' >
-    add stu to sect
-</button>
-<button id = 'studentOfSect' onclick = 'removeStudentFromSection(document.getElementById("sectInp").value);'>
-    remove stu from sect
-</button>
-<!---->
-<button id = 'searchbutton' onclick='search(prompt("First Name:"), prompt("Last Name:"), prompt("ID:"), prompt("Grade:"));'>
-    search
-</button>
-<div id = 'error'></div>
 
 </body>
 </html>

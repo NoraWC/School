@@ -11,57 +11,6 @@
  */
 
 
-var STUDENTS = [];
-var TEACHERS = [];
-var SECTIONS = [];//lists all sections
-
-
-function Person() {
-    this.id = 0;
-    this.firstName = "";
-    this.lastName= "";
-}
-
-function Student() {
-    Person.call();
-    this.grade = 0; //not letter grade; sondern 9-12
-    this.searched = false;
-}
-
-function Teacher(){
-    Person.call();
-    this.subject = "";
-}
-
-
-function Section() {
-    this.name = "";
-    this.id = this.name;
-    this.maxSize = 0;
-    this.students = [];
-    this.currentSize = this.students.length;
-
-    this.addStudent = function(Student) {
-        this.currentSize +=1;
-        this.students.push(Student);
-    };
-    this.addTeacher= function(Teacher) {
-        this.teacher = Teacher;
-    };
-    this.removeStudent = function(stu) {
-        var z = this.students.indexOf(stu);
-        this.students.splice(z,1);
-    };
-    this.sectionSeatsRemaining = function() {
-        return this.maxSize - this.currentSize;
-    };
-    this.listInfo = function() {
-        var ret = "Name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
-        ret += " Seats Remaining: " + this.sectionSeatsRemaining();
-        return ret;
-    }
-}
-
 function showTeacher(bool) {
     var classy = 'secret';
     var returnVal = '';
@@ -91,75 +40,7 @@ function showStudent(bool) {
 }
 
 
-function html() {
-    //use length of sections to determine how many columns/rows needed
-    var len = SECTIONS.length;
-    var returnVal = "<table>";
-    var divs = "";
-
-
-    var bleh = ["'name/id", "'max size", "'current size", "'students", "'teacher"];
-    divs += "<td><div id = 'sectionInputs'>";
-    divs += "<button id = 'showsection' onclick = 'listSectionInfo();'></button>";
-    for (var f = 1; f < 6; f ++) {
-        //fix class
-        //make a function like Student/Teacher???
-        divs += "<input title = 'sectionInp" + f + "' class = 'show' id = 'sectionInp" + f + "' type = 'text' value = " + bleh[f-1] + "'>";
-    }
-
-    divs += "<td><div id = 'teacherInputs'>";
-    divs += "<button id = 'showTeacher' onclick = 'showTeacher(true);'></button>";
-    divs += "</div></td>";
-    divs += "<td><div id = 'studentInputs'>";
-    divs += "<button id = 'showStudent' onclick = 'showStudent(true);'></button>";
-    divs += "</div></td>";
-
-     returnVal += "<tr>" + divs + "</div></td></tr>";
-
-    for(var i = 0; i < len; i ++) {
-        var stu = [];
-        for (var x = 0; x < SECTIONS[i].students.length; x ++) {
-            var anyStu = SECTIONS[i].students[x];
-            var classify = '';
-            if(!anyStu.searched) {
-                classify = 'secret';
-            } else {
-                classify = 'show';
-            }
-            stu+="<div class = '"+classify+"' id = 'student"+anyStu.id+"'>Name: "+anyStu.firstName+" "+anyStu.lastName+" ID: "+anyStu.id+" Grade: " + anyStu.grade + "</div>";
-        }
-        returnVal += "<tr><td id = 'name'><div class = 'fancy'>Section:</div>" + SECTIONS[i].name + "</td>";
-        returnVal += "<td id = '" + SECTIONS[i].id + "teacher'><div class = 'fancy'>Teacher:</div>Mx. " + SECTIONS[i].teacher.lastName +"</td>";
-        returnVal += "<td class = 'students' id = '" + SECTIONS[i].id + "students'><div class = 'fancy'>Students:</div>" + stu + "</td>";
-        returnVal += "</tr>";
-    }
-    returnVal += "</table>";
-    document.getElementById("displayTable").innerHTML = returnVal;
-}
-
-function search(fn, ln, id, gr) {
-    var f = false;
-    id = parseInt(id);
-    gr = parseInt(gr);
-    for(var z =0; z < SECTIONS.length; z ++) {
-        var stu = SECTIONS[z].students;
-        for (var i = 0; i < stu.length; i++) {
-            if(stu[i].id === id || (stu[i].firstName === fn && stu[i].lastName === ln && stu[i].grade === gr)){
-                SECTIONS[z].students[i].searched = true;
-                f = true;
-                html();
-            }
-        }
-    }
-    if(f) {
-        html();
-    } else {
-        document.getElementById("error").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and check your spelling."
-    }
-}
-
 function val(id, type) {
-
     var arr = [];
     if (type === "section") {
         id = id.toString();
