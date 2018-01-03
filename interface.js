@@ -42,23 +42,6 @@ function html() {
     }
     returnVal += "</table>";
     document.getElementById("displayTable").innerHTML = returnVal;
-
-    if (document.getElementById('searchSelect').innerHTMl === 'stu') {
-        document.getElementById('searchbars').innerHTMl = "<input type = text title = 'searchName1' id = 'searchName1' value = 'First Name'>\n" +
-            "    <input type = text title = 'searchName2' id = 'searchName2' value = 'Last Name'>\n" +
-            "    <input type = text title = 'searchId' id = 'searchId' value = 'ID'>\n" +
-            "    <input type = text title = 'searchGrade' id = 'searchGrade' value = 'Grade'>";
-    } else if (document.getElementById('searchSelect').innerHTML === 'tea') {
-        document.getElementById('searchbars').innerHTMl = "<input type = text title = 'searchName1' id = 'searchName1' value = 'First Name'>\n" +
-            "    <input type = text title = 'searchName2' id = 'searchName2' value = 'Last Name'>\n" +
-            "    <input type = text title = 'searchId' id = 'searchId' value = 'ID'>\n" +
-            "    <input type = text title = 'searchOther' id = 'searchSubject' value = 'Subject'>";
-    } else {
-        document.getElementById('searchbars').innerHTMl = "<input type = text title = 'searchId' id = 'searchSection' value = 'Section Name'>";
-    }
-
-    setSearch();
-
 }
 
 function setSearch() {
@@ -67,32 +50,33 @@ function setSearch() {
     var val3 = "";
     var val4 = "";
     var val5 = "";
-
-    if (document.getElementById('searchSelect').innerHTMl === 'stu') {
-
-        val1 = document.getElementById('searchName1').value;
-        val2 = document.getElementById('searchName2').value;
-        val3 = document.getElementById('searchId').value;
+    if (document.getElementById('searchstu').className === 'show') {
+        val1 = document.getElementById('name1Stu').value;
+        val2 = document.getElementById('name2Stu').value;
+        val3 = document.getElementById('IdStu').value;
         val4 = document.getElementById('searchGrade').value;
         val5 = 'stu';
-    } else if (document.getElementById('searchSelect').innerHTML === 'tea') {
-
-        val1 = document.getElementById('searchName1').value;
-        val2 = document.getElementById('searchName2').value;
-        val3 = document.getElementById('searchId').value;
+    }
+    if (document.getElementById('searchtea').className === 'show') {
+        val1 = document.getElementById('name1Tea').value;
+        val2 = document.getElementById('name2Tea').value;
+        val3 = document.getElementById('IdTea').value;
         val4 = document.getElementById('searchSubject').value;
         val5 = 'tea';
-    } else {
+    }
+    if (document.getElementById('searchsec').className === 'show') {
         val1 = document.getElementById('searchSection').value;
         val2 = "";
         val3 = "";
         val4 = "";
         val5 = 'sec';
     }
+    search(val1, val2, val3, val4, val5);
 }
 
 function search(fn, ln, id, gr, type) {
     document.getElementById('searchDisplay').innerHTMl = "";
+    var f = false;
     if(type === 'stu') {
         id = parseInt(id);
         gr = parseInt(gr);
@@ -110,7 +94,6 @@ function search(fn, ln, id, gr, type) {
         if(!f) {
             document.getElementById("searchDisplay").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and check your spelling."
         }
-        var f = false;
     } else if(type === 'tea') {
 
         id = parseInt(id);

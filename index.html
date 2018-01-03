@@ -17,18 +17,7 @@
 
 <body>
 
-<div id = 'searchMain'>
-    <select id = 'searchSelect'>
-        <option id = 'stu'>Student</option>
-        <option id = 'tea'>Teacher</option>
-        <option id = 'sec'>Section</option>
-    </select>
-    <div id = 'searchbars'>
-    </div>
-    <button id = 'searchgo' onclick = 'search(val1, val2, val3, val4, val5);'></button>
-    <div id = 'searchDisplay'>
-    </div>
-</div>
+
 
 <div id = 'displayTable'><script>html();</script></div>
 <br>
@@ -71,7 +60,38 @@
     <button onclick = 'addSection();'>go</button>
 </div>
 
-
+<div id = 'searchMain'>
+    <button id = 'stusearch' onclick = 'document.getElementById("searchstu").className = "show";
+    document.getElementById("searchtea").className = "secret";
+    document.getElementById("searchsec").className = "secret";'>search student</button>
+    <button id = 'teasearch' onclick = 'document.getElementById("searchtea").className = "show";
+    document.getElementById("searchsec").className = "secret";
+    document.getElementById("searchstu").className = "secret";'>search teacher</button>
+    <button id = 'secsearch' onclick = 'document.getElementById("searchsec").className = "show";
+    document.getElementById("searchtea").className = "secret";
+    document.getElementById("searchstu").className = "secret";'>search section</button>
+    <br>
+    <div id = 'searchstu' class = 'secret'>
+        <input type = text title = 'searchName1' id = 'name1Stu' value = 'First Name'>
+        <input type = text title = 'searchName2' id = 'name2Stu' value = 'Last Name'>
+        <input type = text title = 'searchId' id = 'IdStu' value = 'ID'>
+        <input type = text title = 'searchGrade' id = 'searchGrade' value = 'Grade'>
+    </div>
+    <div id = 'searchtea' class = 'secret'>
+        <input type = text title = 'searchName1' id = 'name1Tea' value = 'First Name'>
+        <input type = text title = 'searchName2' id = 'name2Tea' value = 'Last Name'>
+        <input type = text title = 'searchId' id = 'IdTea' value = 'ID'>
+        <input type = text title = 'searchOther' id = 'searchSubject' value = 'Subject'>
+    </div>
+    <div id = 'searchsec' class = 'secret'>
+        <input type = text title = 'searchId' id = 'searchSection' value = 'Section Name'>
+    </div>
+    <br>
+    <button id = 'startsearch' onclick = 'setSearch();'>go</button>
+    <br>
+    <div id = 'searchDisplay'>
+    </div>
+</div>
 
 </body>
 </html>

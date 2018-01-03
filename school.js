@@ -39,7 +39,6 @@ function showStudent(bool) {
     return returnVal;
 }
 
-
 function val(id, type) {
     var arr = [];
     if (type === "section") {

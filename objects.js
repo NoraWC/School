@@ -47,3 +47,31 @@ function Section() {
         return ret;
     }
 }
+
+var b = new Student();
+b.firstName = 'jo';
+b.lastName = 'five';
+b.grade = 10;
+b.id = 5;
+
+var h = new Student();
+h.firstName = 'Ellie';
+h.lastName = 'two';
+h.grade = 11;
+h.id = 2;
+
+var d = new Teacher();
+d.firstName = 'Doc';
+d.lastName = 'Tor';
+d.subject = 'Medicine';
+d.id = 0;
+
+var green = new Section();
+green.name = 'green';
+green.maxSize = 20;
+green.students.push(b, h);
+green.addTeacher(d);
+
+STUDENTS.push(b,h);
+TEACHERS.push(d);
+SECTIONS.push(green);
