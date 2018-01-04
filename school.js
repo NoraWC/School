@@ -7,37 +7,9 @@
 * show/hide div content CHECK
 * relative positioning
 * global/local vars CHECK
-* OBJECTS ChECK
+* OBJECTS CHECK
  */
 
-
-function showTeacher(bool) {
-    var classy = 'secret';
-    var returnVal = '';
-    var vals = ["'first name", "'last name", "'id", "'subject"];
-    if(bool) {
-        classy = 'show';
-    }
-    for(var y = 1; y < 5; y++) {
-        returnVal += "<input title = 'teacherInp'" + y + "' class = '"+ classy + "'";
-        returnVal += "' id = 'teacherInp'" + y + "' type = 'text' value = " + vals[y-1] + "'>";
-    }
-    return returnVal;
-}
-
-function showStudent(bool) {
-    var classy = 'secret';
-    var returnVal = '';
-    var vals = ["'first name", "'last name", "'id", "'grade"];
-    if(bool) {
-        classy = 'show';
-    }
-    for(var y = 1; y < 5; y++) {
-        returnVal += "<input title = 'studentInp'" + y + "' class = '"+ classy + "'";
-        returnVal += "' id = 'StudentInp'" + y + "' type = 'text' value = " + vals[y-1] + "'>";
-    }
-    return returnVal;
-}
 
 function val(id, type) {
     var arr = [];
@@ -53,10 +25,10 @@ function val(id, type) {
     } else {
         return 0;
     }
-    for (var geriatric = 0; geriatric < arr.length; geriatric ++) {
-        var foxes = arr[geriatric].id;
+    for (var selected = 0; selected < arr.length; selected ++) {
+        var foxes = arr[selected].id;
         if( foxes === id) {
-            id = arr[geriatric];
+            id = arr[selected];
         }
     }
     return id;
@@ -87,13 +59,25 @@ function removeStudentFromSection(section) {
 
 function addaStudent() {
     var newStu = new Student();
-    newStu.firstName = document.getElementById("addStuName1").value;
-    newStu.lastName = document.getElementById("addStuName2").value;
-    newStu.id = parseInt(document.getElementById("addStuId").value);
-    newStu.grade = parseInt(document.getElementById("addStuGrade").value);
+    var fn = document.getElementById("addStuName1").value;
+    var ln = document.getElementById("addStuName2").value;
+    var id = parseInt(document.getElementById("addStuId").value);
+    var gr = parseInt(document.getElementById("addStuGrade").value);
+    newStu.firstName = fn;
+    newStu.lastName = ln;
+    newStu.id = id;
+    newStu.grade = gr;
+
+    for (var f = 0; f < STUDENTS.length; f++) {
+        if((STUDENTS[f].firstName === fn && STUDENTS[f].lastName === ln) || STUDENTS[f].id === id) {
+            document.getElementById("searchDisplay").innerHTML = "This student already exists!";
+            return null;
+        }
+    }
     STUDENTS.push(newStu);
     console.log(STUDENTS);
     console.log(newStu);
+    setAddSection();
     return newStu;
 }
 
@@ -105,20 +89,23 @@ function addaTeacher() {
     TEACHERS.push(teacher);
     console.log(TEACHERS);
     console.log(teacher);
+    setAddSection();
     return teacher;
 }
 
 function addSection() {
     var sect = new Section();
-    sect.name = document.getElementById('addSectName');
-    sect.maxSize = document.getElementById('addSectMax');
-    sect.currentSize =
-    students = students.split(", ");
-    for(var z = 0; z< students.length; z++) {
+    sect.name = document.getElementById('addSectName').value;
+    sect.maxSize = document.getElementById('addSectMax').value;
+    sect.currentSize = sect.students.length;
+    /*adding students to new sections? manually is clunky
+    var students = document.getElementById("addingSectStu").value;
+    for(var z = 0; z < sect.currentSize; z++) {
         students[z] = val(students[z], 'student');
         sect.students.push(students[z]);
     }
     sect.teacher = val(teacher, 'teacher');
+    */
     SECTIONS.push(sect);
     console.log(SECTIONS);
     html();

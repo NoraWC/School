@@ -75,3 +75,5 @@ green.addTeacher(d);
 STUDENTS.push(b,h);
 TEACHERS.push(d);
 SECTIONS.push(green);
+
+console.log(green);

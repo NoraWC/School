@@ -20,47 +20,50 @@
 
 
 <div id = 'displayTable'><script>html();</script></div>
+
 <br>
+
+<table id = 'adder'>
+    <tr>
+        <td>
+            <div id = 'addingStudents'>
+            <input type = text title = 'addStuName1' id = 'addStuName1' value = 'First Name'>
+            <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
+            <input type = text title = 'addStuId' id = 'addStuId' value = 'ID'>
+            <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
+            <button onclick = 'addaStudent();'>dew it</button>
+            </div>
+        </td>
+        <td>
+            <div id = 'addingTeachers'>
+                <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
+                <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
+                <input type = text title = 'addStuId' id = 'addTeaId' value = 'ID'>
+                <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
+                <button onclick = 'addaTeacher();'>just do it</button>
+            </div>
+        </td>
+        <td>
+            <div id = 'addingSect'>
+                <input type = text title = 'addSect1' id = 'addSectName' value = 'Section Name'>
+                <input type = text title = 'addSect1' id = 'addSectMax' value = 'Max Size'>
+
+                <div id = 'addingSectStu'></div>
+
+                <div id = 'addingSectTea'></div>
+
+                <script>setAddSection();</script>
+
+                <button onclick = 'addSection();'>go</button>
+            </div>
+        </td>
+    </tr>
+</table>
+
 <br>
-
-
-<div id = 'addingStudents'>
-    <input type = text title = 'addStuName1' id = 'addStuName1' value = 'First Name'>
-    <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
-    <input type = text title = 'addStuId' id = 'addStuId' value = 'ID'>
-    <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
-    <button onclick = 'addaStudent();'>dew it</button>
-</div>
-
-<div id = 'addingTeachers'>
-    <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
-    <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
-    <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
-    <button onclick = 'addaTeacher();'>just do it</button>
-</div>
-
-<div id = 'addingSect'>
-    <input type = text title = 'addSect1' id = 'addSectName' value = 'Section Name'>
-    <input type = text title = 'addSect1' id = 'addSectMax' value = 'Max Size'>
-    <script>
-        var fin = "<select id = 'students'>";
-        for (var i = 0; i < STUDENTS.length; i ++) {
-            fin+= "<option id = 'student" + i + "' value = '" + STUDENTS[i].firstName + STUDENTS[i].lastName + "'";
-        }
-        fin+= "</select>";
-        document.getElementById('addingSect').innerHTML += fin;
-
-        var ret = "<select id = 'teacher'>";
-        for (var x = 0; x < TEACHERS.length; x ++) {
-            ret += "<option id = 'teacher" + x + "' value = '" + TEACHERS[x].firstName + " " + TEACHERS[x].lastName + "'";
-        }
-        ret += "</select>";
-        document.getElementById('addingSect').innerHTML += ret;
-    </script>
-    <button onclick = 'addSection();'>go</button>
-</div>
 
 <div id = 'searchMain'>
+    <!--do in js? then I can reload on command-->
     <button id = 'stusearch' onclick = 'document.getElementById("searchstu").className = "show";
     document.getElementById("searchtea").className = "secret";
     document.getElementById("searchsec").className = "secret";'>search student</button>

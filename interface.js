@@ -1,25 +1,38 @@
 
+function showTeacher(bool) {
+    var classy = 'secret';
+    var returnVal = '';
+    var vals = ["'first name", "'last name", "'id", "'subject"];
+    if(bool) {
+        classy = 'show';
+    }
+    for(var y = 1; y < 5; y++) {
+        returnVal += "<input title = 'teacherInp'" + y + "' class = '"+ classy + "'";
+        returnVal += "' id = 'teacherInp'" + y + "' type = 'text' value = " + vals[y-1] + "'>";
+    }
+    return returnVal;
+}
+
+function showStudent(bool) {
+    var classy = 'secret';
+    var returnVal = '';
+    var vals = ["'first name", "'last name", "'id", "'grade"];
+    if(bool) {
+        classy = 'show';
+    }
+    for(var y = 1; y < 5; y++) {
+        returnVal += "<input title = 'studentInp'" + y + "' class = '"+ classy + "'";
+        returnVal += "' id = 'StudentInp'" + y + "' type = 'text' value = " + vals[y-1] + "'>";
+    }
+    return returnVal;
+}
+
 function html() {
     //use length of sections to determine how many columns/rows needed
     var len = SECTIONS.length;
     var returnVal = "<table>";
     var divs = "";
 
-
-    var bleh = ["'name/id", "'max size", "'current size", "'students", "'teacher"];
-    divs += "<td><div id = 'sectionInputs'>";
-    divs += "<button id = 'showsection' onclick = 'listSectionInfo();'></button>";
-    for (var f = 1; f < 6; f ++) {
-        //fix class
-        divs += "<input title = 'sectionInp" + f + "' class = 'show' id = 'sectionInp" + f + "' type = 'text' value = " + bleh[f-1] + "'>";
-    }
-
-    divs += "<td><div id = 'teacherInputs'>";
-    divs += "<button id = 'showTeacher' onclick = 'showTeacher(true);'></button>";
-    divs += "</div></td>";
-    divs += "<td><div id = 'studentInputs'>";
-    divs += "<button id = 'showStudent' onclick = 'showStudent(true);'></button>";
-    divs += "</div></td>";
 
     returnVal += "<tr>" + divs + "</div></td></tr>";
 
@@ -42,6 +55,25 @@ function html() {
     }
     returnVal += "</table>";
     document.getElementById("displayTable").innerHTML = returnVal;
+}
+
+
+function setAddSection() {
+    var fin = "<select id = 'students'>";
+    for (var i = 0; i < STUDENTS.length; i ++) {
+        fin+= "<option id = 'student" + i + "' value = '" + STUDENTS[i].firstName + " " + STUDENTS[i].lastName + "'>";
+        fin += STUDENTS[i].firstName + " " + STUDENTS[i].lastName + "</option>";
+    }
+    fin+= "</select>";
+    document.getElementById('addingSectStu').innerHTML = fin;
+
+    var ret = "<select id = 'teacher'>";
+    for (var x = 0; x < TEACHERS.length; x ++) {
+        ret += "<option id = 'teacher" + x + "' value = '" + TEACHERS[x].firstName + " " + TEACHERS[x].lastName + "'>";
+        ret += TEACHERS[x].firstName + " " + TEACHERS[x].lastName + "</option>";
+    }
+    ret += "</select>";
+    document.getElementById('addingSectTea').innerHTML = ret;
 }
 
 function setSearch() {
@@ -78,6 +110,7 @@ function search(fn, ln, id, gr, type) {
     document.getElementById('searchDisplay').innerHTMl = "";
     var f = false;
     if(type === 'stu') {
+        var arr = [];
         id = parseInt(id);
         gr = parseInt(gr);
         for(var z =0; z < SECTIONS.length; z ++) {
@@ -86,32 +119,38 @@ function search(fn, ln, id, gr, type) {
                 if(stu[i].id === id || (stu[i].firstName === fn && stu[i].lastName === ln && stu[i].grade === gr)){
                     SECTIONS[z].students[i].searched = true;
                     f = true;
-                    html();
                     document.getElementById('searchDisplay').innerHTMl += SECTIONS[z].students[i];
+                    arr.push(SECTIONS[z].students[i]);
+                    console.log(SECTIONS[z].students[i]);
+                    html();
                 }
             }
         }
         if(!f) {
             document.getElementById("searchDisplay").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and check your spelling."
         }
+        return arr;
     } else if(type === 'tea') {
-
+        var t = null;
         id = parseInt(id);
         gr = gr.toString();
         for(var x =0; x < SECTIONS.length; x ++) {
             var teacher = SECTIONS[x].teacher;
             if (teacher.id = id || (teacher.firstName === fn && teacher.lastName === ln) || teacher.subject === gr) {
                 document.getElementById('searchDisplay').innerHTML += SECTIONS[x].teacher;
+                t = SECTIONS[x].teacher;
                 f = true;
+                html();
             }
         }
         if (!f) {
             document.getElementById('searchDisplay').innerHTML = "Teacher " + fn + " " + ln + " ID " + id + " of " + gr + " not found. Try checking your spelling."
         }
+        return t
     } else {
         for(var b = 0; b < SECTIONS.length; b++) {
             if(SECTIONS[b].name === document.getElementById('searchSection').value || SECTIONS[b].id === document.getElementById('searchSection').value) {
-                document.getElementById('searchDisplay').innerHTML += SECTIONS[b];
+                document.getElementById('searchDisplay').innerHTML += SECTIONS[b].listInfo();
                 f = true;
             }
         }
