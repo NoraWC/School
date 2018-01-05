@@ -31,12 +31,9 @@ function html() {
     //use length of sections to determine how many columns/rows needed
     var len = SECTIONS.length;
     var returnVal = "<table>";
-    var divs = "";
-
-
-    returnVal += "<tr>" + divs + "</div></td></tr>";
 
     for(var i = 0; i < len; i ++) {
+        /*
         var stu = [];
         for (var x = 0; x < SECTIONS[i].students.length; x ++) {
             var anyStu = SECTIONS[i].students[x];
@@ -48,9 +45,10 @@ function html() {
             }
             stu+="<div class = '"+classify+"' id = 'student"+anyStu.id+"'>Name: "+anyStu.firstName+" "+anyStu.lastName+" ID: "+anyStu.id+" Grade: " + anyStu.grade + "</div>";
         }
-        returnVal += "<tr><td id = 'name'><div class = 'fancy'>Section:</div>" + SECTIONS[i].name + "</td>";
+        */
+        returnVal += "<tr><td id = 'name'><div class = 'fancy'>Section:</div><button id = 'dispsec" + i + "' onclick = ''" + SECTIONS[i].name + "</td>";
         returnVal += "<td id = '" + SECTIONS[i].id + "teacher'><div class = 'fancy'>Teacher:</div>Mx. " + SECTIONS[i].teacher.lastName +"</td>";
-        returnVal += "<td class = 'students' id = '" + SECTIONS[i].id + "students'><div class = 'fancy'>Students:</div>" + stu + "</td>";
+        returnVal += "<td class = 'students' id = '" + SECTIONS[i].id + "students'><div class = 'fancy'>Students:</div></td>"; //" + stu + "
         returnVal += "</tr>";
     }
     returnVal += "</table>";
@@ -107,40 +105,34 @@ function setSearch() {
 }
 
 function search(fn, ln, id, gr, type) {
-    document.getElementById('searchDisplay').innerHTMl = "";
     var f = false;
     if(type === 'stu') {
         var arr = [];
         id = parseInt(id);
         gr = parseInt(gr);
         for(var z =0; z < SECTIONS.length; z ++) {
-            var stu = SECTIONS[z].students;
-            for (var i = 0; i < stu.length; i++) {
-                if(stu[i].id === id || (stu[i].firstName === fn && stu[i].lastName === ln && stu[i].grade === gr)){
-                    SECTIONS[z].students[i].searched = true;
+            for (var i = 0; i < SECTIONS[z].students.length; i++) {
+                if(SECTIONS[z].students[i].id === id || (SECTIONS[z].students[i].firstName === fn && SECTIONS[z].students[i].lastName === ln) || SECTIONS[z].students[i].grade === gr){
+                    arr.push(fn+" "+ln+" ID "+id+" is in grade "+gr+" and section "+SECTIONS[z]+".");
                     f = true;
-                    document.getElementById('searchDisplay').innerHTMl += SECTIONS[z].students[i];
-                    arr.push(SECTIONS[z].students[i]);
-                    console.log(SECTIONS[z].students[i]);
-                    html();
                 }
             }
         }
+        document.getElementById("searchDisplay").innerHTML += arr;
         if(!f) {
             document.getElementById("searchDisplay").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and check your spelling."
         }
-        return arr;
     } else if(type === 'tea') {
+        document.getElementById('searchDisplay').innerHTMl ="";
         var t = null;
         id = parseInt(id);
         gr = gr.toString();
         for(var x =0; x < SECTIONS.length; x ++) {
             var teacher = SECTIONS[x].teacher;
-            if (teacher.id = id || (teacher.firstName === fn && teacher.lastName === ln) || teacher.subject === gr) {
-                document.getElementById('searchDisplay').innerHTML += SECTIONS[x].teacher;
+            if (teacher.id === id || (teacher.firstName === fn && teacher.lastName === ln) || teacher.subject === gr) {
+                document.getElementById('searchDisplay').innerHTML = "Mx. "+teacher.firstName+" "+teacher.lastName+" ID "+teacher.id+" teaches "+teacher.subject+". in " + SECTIONS[x];
                 t = SECTIONS[x].teacher;
                 f = true;
-                html();
             }
         }
         if (!f) {
@@ -148,14 +140,16 @@ function search(fn, ln, id, gr, type) {
         }
         return t
     } else {
+        document.getElementById('searchDisplay').innerHTMl ="";
         for(var b = 0; b < SECTIONS.length; b++) {
-            if(SECTIONS[b].name === document.getElementById('searchSection').value || SECTIONS[b].id === document.getElementById('searchSection').value) {
+            if(SECTIONS[b].name === document.getElementById('searchSectionName').value || SECTIONS[b].id === document.getElementById('searchSectionId').value) {
                 document.getElementById('searchDisplay').innerHTML += SECTIONS[b].listInfo();
                 f = true;
             }
         }
         if (!f) {
-            document.getElementById('searchDisplay').innerHTMl = "Section " + document.getElementById('searchSection').value + " not found. Try checking your spelling.";
+            document.getElementById('searchDisplay').innerHTMl = "Section "+document.getElementById('searchSectionName').value+" ID";
+            document.getElementById('searchDisplay').innerHTMl += document.getElementById('searchSectionId').value+" not found. Try checking your spelling.";
         }
     }
 }

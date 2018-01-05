@@ -63,7 +63,6 @@
 <br>
 
 <div id = 'searchMain'>
-    <!--do in js? then I can reload on command-->
     <button id = 'stusearch' onclick = 'document.getElementById("searchstu").className = "show";
     document.getElementById("searchtea").className = "secret";
     document.getElementById("searchsec").className = "secret";'>search student</button>
@@ -87,13 +86,13 @@
         <input type = text title = 'searchOther' id = 'searchSubject' value = 'Subject'>
     </div>
     <div id = 'searchsec' class = 'secret'>
-        <input type = text title = 'searchId' id = 'searchSection' value = 'Section Name'>
+        <input type = text title = 'searchId' id = 'searchSectionName' value = 'Section Name'>
+        <input type = text title = 'searchId' id = 'searchSectionId' value = 'Section Id'>
     </div>
     <br>
     <button id = 'startsearch' onclick = 'setSearch();'>go</button>
     <br>
-    <div id = 'searchDisplay'>
-    </div>
+    <div id = 'searchDisplay'></div>
 </div>
 
 </body>

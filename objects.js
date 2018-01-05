@@ -12,21 +12,22 @@ function Student() {
     Person.call();
     this.grade = 0; //not letter grade; sondern 9-12
     this.searched = false;
+    this.id = STUDENTS.length+1;
 }
 
 function Teacher(){
     Person.call();
     this.subject = "";
+    this.id = TEACHERS.length +1;
 }
 
 
 function Section() {
     this.name = "";
-    this.id = this.name;
     this.maxSize = 0;
     this.students = [];
     this.currentSize = this.students.length;
-
+    this.id = SECTIONS.length + 1;
     this.addStudent = function(Student) {
         this.currentSize +=1;
         this.students.push(Student);
@@ -49,31 +50,33 @@ function Section() {
 }
 
 var b = new Student();
-b.firstName = 'jo';
-b.lastName = 'five';
+b.firstName = "Jo";
+b.lastName = "five";
 b.grade = 10;
-b.id = 5;
+STUDENTS.push(b);
+console.log(b);
 
 var h = new Student();
-h.firstName = 'Ellie';
-h.lastName = 'two';
+h.firstName = "Ellie";
+h.lastName = "two";
 h.grade = 11;
-h.id = 2;
+STUDENTS.push(h);
+console.log(h);
 
 var d = new Teacher();
-d.firstName = 'Doc';
-d.lastName = 'Tor';
-d.subject = 'Medicine';
-d.id = 0;
+d.firstName = "Doc";
+d.lastName = "Tor";
+d.subject = "Medicine";
+TEACHERS.push(d);
+console.log(d);
 
 var green = new Section();
-green.name = 'green';
+green.name = "green";
 green.maxSize = 20;
-green.students.push(b, h);
+green.addStudent(h);
+green.addStudent(b);
 green.addTeacher(d);
 
-STUDENTS.push(b,h);
-TEACHERS.push(d);
 SECTIONS.push(green);
 
 console.log(green);
