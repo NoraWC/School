@@ -14,20 +14,28 @@
 function val(id, type) {
     var arr = [];
     if (type === "section") {
-        id = id.toString();
+        //id = id.toString();
         arr = SECTIONS;
     } else if (type === "student") {
         id = parseInt(id);
-        arr = STUDENTS;
+        if(STUDENTS.length<id) {
+            arr = FREE_STUDENTS;
+        } else {
+            arr = STUDENTS;
+        }
     } else if (type === "teacher") {
         id = parseInt(id);
-        arr = TEACHERS;
+        if(TEACHERS.length<id) {
+            arr = FREE_TEACHERS;
+        } else {
+            arr = TEACHERS;
+        }
     } else {
         return 0;
     }
     for (var selected = 0; selected < arr.length; selected ++) {
-        var foxes = arr[selected].id;
-        if( foxes === id) {
+        var idOfSelected = arr[selected].id;
+        if( idOfSelected === id) {
             id = arr[selected];
         }
     }
@@ -42,6 +50,7 @@ function addStudentToSection(section, stu) {
 
 function removeStudentFromSection(section) {
     section = val(section, 'section');
+    //update for new search/selection fields
     var fn = document.getElementById("stuInp1").value;
     var ln = document.getElementById("stuInp2").value;
     var d = parseInt(document.getElementById("stuInp3").value);
@@ -68,14 +77,23 @@ function addaStudent() {
     newStu.id = id;
     newStu.grade = gr;
 
-    for (var f = 0; f < STUDENTS.length; f++) {
-        if((STUDENTS[f].firstName === fn && STUDENTS[f].lastName === ln) || STUDENTS[f].id === id) {
-            document.getElementById("searchDisplay").innerHTML = "This student already exists!";
-            return null;
+    for (var g = 0; g <= 1; g++) {
+        if ( g = 0) {
+            var arr = STUDENTS;
+        } else {
+            arr = FREE_STUDENTS;
+        }
+        for (var f = 0; f < arr.length; f++) {
+            if((arr[f].firstName === fn && arr[f].lastName === ln) || arr[f].id === id) {
+                document.getElementById("searchDisplay").innerHTML = "This student already exists!";
+                return null;
+            }
         }
     }
-    STUDENTS.push(newStu);
+
+    FREE_STUDENTS.push(newStu);
     console.log(STUDENTS);
+    console.log(FREE_STUDENTS);
     console.log(newStu);
     setAddSection();
     return newStu;
@@ -86,7 +104,8 @@ function addaTeacher() {
     teacher.firstName = document.getElementById('addTeaName1').value;
     teacher.lastName = document.getElementById('addTeaName2').value;
     teacher.subject = document.getElementById('addTeaSubj').value;
-    TEACHERS.push(teacher);
+    FREE_TEACHERS.push(teacher);
+    console.log(FREE_TEACHERS);
     console.log(TEACHERS);
     console.log(teacher);
     setAddSection();
@@ -110,16 +129,5 @@ function addSection() {
     console.log(SECTIONS);
     html();
     return sect;
-
-}
-function listSectionInfo() {
-    for (var g = 0; g < STUDENTS.length; g++) {
-        search(STUDENTS[g].firstName, STUDENTS[g].lastName, STUDENTS[g].id, STUDENTS[g].grade);
-    }
-    for(var z = 0; z < SECTIONS.length; z++) {
-        var sectionId = SECTIONS[z];
-        var sec = SECTIONS[z].name;
-        document.getElementById(sec + 'teacher').innerHTML += ", " + sectionId.teacher.subject;
-    }
 
 }

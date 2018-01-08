@@ -45,3 +45,7 @@ td {
     margin-top: -14%;
     height : 100%;
 }
+
+.searcher {
+    display: none;
+}

@@ -1,5 +1,7 @@
 var STUDENTS = [];
+var FREE_STUDENTS = [];
 var TEACHERS = [];
+var FREE_TEACHERS = [];
 var SECTIONS = [];//lists all sections
 
 function Person() {
