@@ -65,6 +65,13 @@ h.grade = 11;
 STUDENTS.push(h);
 console.log(h);
 
+var c = new Student();
+c.firstName = "Luco";
+c.lastName = "four";
+c.grade = "12";
+FREE_STUDENTS.push(c);
+console.log(c);
+
 var d = new Teacher();
 d.firstName = "Doc";
 d.lastName = "Tor";

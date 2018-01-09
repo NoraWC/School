@@ -48,22 +48,19 @@ function addStudentToSection(section, stu) {
     section.addStudent(stu);
 }
 
-function removeStudentFromSection(section) {
+function removeStudentFromSection(section, id) {
+    id = parseInt(id);
     section = val(section, 'section');
-    //update for new search/selection fields
-    var fn = document.getElementById("stuInp1").value;
-    var ln = document.getElementById("stuInp2").value;
-    var d = parseInt(document.getElementById("stuInp3").value);
-    var g = parseInt(document.getElementById("stuInp4").value);
+    var stu = val(id, 'student');
     for(var num = 0; num < section.students.length; num++) {
-        var f = section.students[num].firstName;
-        var l = section.students[num].lastName;
-        var id = section.students[num].id;
-        var gr = section.students[num].grade;
-        if (f === fn && l === ln && id === parseInt(d) && gr === parseInt(g)) {
+        if (section.students[num].id === stu.id) {
             section.removeStudent(section.students[num]);
         }
     }
+    section.currentSize -= 1;
+    console.log(section);
+    hideSectionInfo(section.id);
+    listSectionInfo(section);
 }
 
 function addaStudent() {
@@ -117,7 +114,8 @@ function addSection() {
     sect.name = document.getElementById('addSectName').value;
     sect.maxSize = document.getElementById('addSectMax').value;
     sect.currentSize = sect.students.length;
-    /*adding students to new sections? manually is clunky
+    /*
+    //adding students to new sections? manually is clunky
     var students = document.getElementById("addingSectStu").value;
     for(var z = 0; z < sect.currentSize; z++) {
         students[z] = val(students[z], 'student');
