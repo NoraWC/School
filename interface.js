@@ -1,21 +1,57 @@
 
 function html() {
-    //use length of sections to determine how many columns/rows needed
     var len = SECTIONS.length;
     var returnVal = "";
 
     for(var i = 0; i < len; i ++) {
+        //displays section name, contains buttons to hide/show section
         returnVal += "<tr id = 'sect" + SECTIONS[i].id + "all'><td id = 'name'><div class = 'fancy'>Section:</div><div id = '" + SECTIONS[i].id + "name'></div>";
         returnVal += "<button id = 'dispsect'" + i + "' onclick = 'listSectionInfo(" + SECTIONS[i].name + ")'></button>";
         returnVal += "<button id = 'hidesect' class = 'secret' onclick = 'hideSectionInfo("+SECTIONS[i].id+");'></td>";
+
+        //teacher
         returnVal += "<td id = '" + SECTIONS[i].id + "tea'><div class = 'fancy'>Teacher:</div><div id = '" + SECTIONS[i].id + "disptea'></div></td>";
-        returnVal += "<td class = 'students' id = '" + SECTIONS[i].id + "stu'><div class = 'fancy'>Students:</div><div id = '" + SECTIONS[i].id + "dispstu'></div>";
-        returnVal += "<div id = 'add_remove'><button id = 'removeStu"+SECTIONS[i].id+"' onclick = 'removeStudentFromSection(" + SECTIONS[i].name + ", prompt(\"Enter the ID of the student you want to remove.\"));'></button>";
-        returnVal += "<button id = 'removeStu"+SECTIONS[i].id+"' onclick = 'addStudentToSection(" + SECTIONS[i].name + ", prompt(\"Enter the ID of the student you want to add.\"));'></button></div></td>";
+
+        //students
+        returnVal += "<td id = '" + SECTIONS[i].id + "dispstu'><div class = 'fancy'>Students:</div></td>";
+
+        //shows size data
         returnVal += "<td id = '"+ SECTIONS[i].id+"size'><div class = 'fancy'>Size:</div><div id = '" +SECTIONS[i].id +"dispsize'</td>";
         returnVal += "</tr>";
     }
     document.getElementById("displayTable").innerHTML = returnVal;
+}
+
+function dispStudents(sectId) {
+    //displays students; add/remove students
+    //buttons to add/remove students also hide then show all section info to 'reset' table
+
+    //fix positioning, size
+
+    //make hidable here ?
+    var stuTable = "<table id = '" + sectId + "stu'>";
+
+    var sect = val(sectId, 'section');
+    //sets up table w/student data
+    for(var i = 0; i < sect.students.length; i ++) {
+        stuTable += "<tr id = '" + sectId + "dispStu" + i + "'>";
+        stuTable += "<td>" + sect.students[i].firstName + "</td>";
+        stuTable += "<td>" + sect.students[i].lastName + "</td>";
+        stuTable += "<td>" + sect.students[i].grade + "</td>";
+        stuTable += "</tr>";
+    }
+
+    //div to add/remove students from THIS section
+    stuTable += "<div id = 'add_remove'>";
+    //removes student
+    stuTable += "<button id = 'removeStu"+sectId+"' onclick = 'removeStudentFromSection("+sectId + ", prompt(\"Enter the ID of the student you want to remove.\"));";
+    //hides then shows section info: resets students
+    stuTable += "hideSectionInfo(" + sectId+ "); listSectionInfo(" + sectId+ ");'></button>";
+    //removes student
+    stuTable += "<button id = 'addStu"+sectId+"' onclick = 'addStudentToSection(" +sectId+", prompt(\"Enter the ID of the student you want to add.\"));";
+    //hides then shows section info: resets students
+    stuTable += "hideSectionInfo(" + sectId + "); listSectionInfo(" + sectId + ");'></button></div></td>";
+    return stuTable;
 }
 
 
@@ -80,13 +116,8 @@ function listSectionInfo(sect) {
     document.getElementById('hidesect').className = 'show';
     document.getElementById('dispsect').className = 'secret';
     document.getElementById(sect.id + "disptea").innerHTML += "Mx. " + sect.teacher.lastName;
-    var students = "";
-    for (var i = 0; i < sect.students.length; i++) {
-        students += "<div id= '" + sect.id + "student" + i + "'>";
-        students += "Student " + sect.students[i].id + ": " + sect.students[i].firstName + " " + sect.students[i].lastName + " in grade " + sect.students[i].grade + "</div>";
-    }
 
-    document.getElementById(sect.id + "dispstu").innerHTML += students;
+    document.getElementById(sect.id + "dispstu").innerHTML += dispStudents(sect.id);
 
     document.getElementById(sect.id + "dispsize").innerHTML += "Current Size: " + sect.currentSize + "<br>Max Size: " + sect.maxSize + "<br>Seats Remaining: " + sect.sectionSeatsRemaining();
     console.log(sect);
@@ -109,7 +140,7 @@ function search(fn, ln, id, gr, type) {
         }
         document.getElementById("searchDisplay").innerHTML = arr.toString();
         if(!f) {
-            document.getElementById("searchDisplay").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and checking your spelling."
+            document.getElementById("searchDisplay").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and checking your spelling. Are you sure this student is in a section?"
         }
     } else if(type === 'tea') {
         document.getElementById('searchDisplay').innerHTMl ="";
@@ -125,7 +156,7 @@ function search(fn, ln, id, gr, type) {
             }
         }
         if (!f) {
-            document.getElementById('searchDisplay').innerHTML = "Teacher " + fn + " " + ln + " ID " + id + " of " + gr + " not found. Try checking your spelling."
+            document.getElementById('searchDisplay').innerHTML = "Teacher " + fn + " " + ln + " ID " + id + " of " + gr + " not found. Try checking your spelling. Are you sure this teacher is in a section?"
         }
         return t
     } else {

@@ -1,7 +1,7 @@
 /* MUST HAVE:
-* web interface w/ buttons, text fields, display area for output
+* web interface w/ buttons, text fields, display area for output CHECK
 * table w/ elements: students, teachers, sections CHECK
-* interface to add new students, teachers, sections
+* interface to add new students, teachers, sections CHECK
 * add/remove students in sections CHECK
 * search mechanism CHECK
 * show/hide div content CHECK
@@ -67,21 +67,20 @@ function addaStudent() {
     var newStu = new Student();
     var fn = document.getElementById("addStuName1").value;
     var ln = document.getElementById("addStuName2").value;
-    var id = parseInt(document.getElementById("addStuId").value);
     var gr = parseInt(document.getElementById("addStuGrade").value);
+
     newStu.firstName = fn;
     newStu.lastName = ln;
-    newStu.id = id;
     newStu.grade = gr;
 
     for (var g = 0; g <= 1; g++) {
-        if ( g = 0) {
+        if ( g === 0) {
             var arr = STUDENTS;
         } else {
             arr = FREE_STUDENTS;
         }
         for (var f = 0; f < arr.length; f++) {
-            if((arr[f].firstName === fn && arr[f].lastName === ln) || arr[f].id === id) {
+            if(arr[f].firstName === fn && arr[f].lastName === ln && arr[f].grade === gr) {
                 document.getElementById("searchDisplay").innerHTML = "This student already exists!";
                 return null;
             }
@@ -98,9 +97,28 @@ function addaStudent() {
 
 function addaTeacher() {
     var teacher = new Teacher();
-    teacher.firstName = document.getElementById('addTeaName1').value;
-    teacher.lastName = document.getElementById('addTeaName2').value;
-    teacher.subject = document.getElementById('addTeaSubj').value;
+    var fn = document.getElementById('addTeaName1').value;
+    var ln = document.getElementById('addTeaName2').value;
+    var su = document.getElementById('addTeaSubj').value;
+
+    teacher.firstName = fn;
+    teacher.lastName = ln;
+    teacher.subject = su;
+
+    for (var g = 0; g <= 1; g++) {
+        if ( g === 0) {
+            var arr = TEACHERS;
+        } else {
+            arr = FREE_TEACHERS;
+        }
+        for (var f = 0; f < arr.length; f++) {
+            if(arr[f].firstName === fn && arr[f].lastName === ln && arr[f].subject === su) {
+                document.getElementById("searchDisplay").innerHTML = "This teacher already exists!";
+                return null;
+            }
+        }
+    }
+
     FREE_TEACHERS.push(teacher);
     console.log(FREE_TEACHERS);
     console.log(TEACHERS);

@@ -14,13 +14,13 @@ function Student() {
     Person.call();
     this.grade = 0; //not letter grade; sondern 9-12
     this.searched = false;
-    this.id = STUDENTS.length+1;
+    this.id = STUDENTS.length + FREE_STUDENTS.length + 1;
 }
 
 function Teacher(){
     Person.call();
     this.subject = "";
-    this.id = TEACHERS.length +1;
+    this.id = TEACHERS.length + FREE_TEACHERS + 1;
 }
 
 
@@ -68,7 +68,7 @@ console.log(h);
 var c = new Student();
 c.firstName = "Luco";
 c.lastName = "four";
-c.grade = "12";
+c.grade = 12;
 FREE_STUDENTS.push(c);
 console.log(c);
 
