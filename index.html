@@ -20,7 +20,7 @@
             <input type = text title = 'addStuName1' id = 'addStuName1' value = 'First Name'>
             <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
             <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
-            <button onclick = 'addaStudent();'>dew it</button>
+            <button onclick = 'addaStudent();'>Create a Student</button>
             </div>
         </td>
         <td>
@@ -28,7 +28,7 @@
                 <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
                 <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
                 <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
-                <button onclick = 'addaTeacher();'>just do it</button>
+                <button onclick = 'addaTeacher();'>Create A Teacher</button>
             </div>
         </td>
         <td>
@@ -42,7 +42,7 @@
 
                 <script>setAddSection();</script>
 
-                <button onclick = 'addSection();'>go</button>
+                <button onclick = 'addSection();'>Create a Section</button>
             </div>
         </td>
     </tr>
@@ -57,13 +57,13 @@
 <div id = 'searchMain'>
     <button id = 'stusearch' onclick = 'document.getElementById("searchstu").className = "show";
     document.getElementById("searchtea").className = "secret";
-    document.getElementById("searchsec").className = "secret";'>search student</button>
+    document.getElementById("searchsec").className = "secret";'>Search students</button>
     <button id = 'teasearch' onclick = 'document.getElementById("searchtea").className = "show";
     document.getElementById("searchsec").className = "secret";
-    document.getElementById("searchstu").className = "secret";'>search teacher</button>
+    document.getElementById("searchstu").className = "secret";'>Search teachers</button>
     <button id = 'secsearch' onclick = 'document.getElementById("searchsec").className = "show";
     document.getElementById("searchtea").className = "secret";
-    document.getElementById("searchstu").className = "secret";'>search section</button>
+    document.getElementById("searchstu").className = "secret";'>Search sections</button>
     <br>
     <div id = 'searchstu' class = 'secret'>
         <input type = text title = 'searchName1' id = 'name1Stu' value = 'First Name'>
@@ -82,7 +82,7 @@
         <input type = text title = 'searchId' id = 'searchSectionId' value = 'Section Id'>
     </div>
     <br>
-    <button id = 'startsearch' onclick = 'setSearch();'>go</button>
+    <button id = 'startsearch' onclick = 'setSearch();'>Search!</button>
     <br>
     <div id = 'searchDisplay'></div>
 </div>

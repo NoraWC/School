@@ -49,3 +49,16 @@ td {
 .searcher {
     display: none;
 }
+
+.studentTable {
+    border: none;
+    margin-left: 20%;
+}
+
+.displayStudents {
+    padding-right: 50%;
+}
+
+#searchMain {
+
+}

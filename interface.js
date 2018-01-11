@@ -6,14 +6,14 @@ function html() {
     for(var i = 0; i < len; i ++) {
         //displays section name, contains buttons to hide/show section
         returnVal += "<tr id = 'sect" + SECTIONS[i].id + "all'><td id = 'name'><div class = 'fancy'>Section:</div><div id = '" + SECTIONS[i].id + "name'></div>";
-        returnVal += "<button id = 'dispsect'" + i + "' onclick = 'listSectionInfo(" + SECTIONS[i].name + ")'></button>";
-        returnVal += "<button id = 'hidesect' class = 'secret' onclick = 'hideSectionInfo("+SECTIONS[i].id+");'></td>";
+        returnVal += "<button id = 'dispsect'" + i + "' onclick = 'listSectionInfo(" + SECTIONS[i].name + ")'>Display Info</button>";
+        returnVal += "<button id = 'hidesect' class = 'secret' onclick = 'hideSectionInfo("+SECTIONS[i].id+");'>Hide Info</td>";
 
         //teacher
         returnVal += "<td id = '" + SECTIONS[i].id + "tea'><div class = 'fancy'>Teacher:</div><div id = '" + SECTIONS[i].id + "disptea'></div></td>";
 
         //students
-        returnVal += "<td id = '" + SECTIONS[i].id + "dispstu'><div class = 'fancy'>Students:</div></td>";
+        returnVal += "<td id = '" + SECTIONS[i].id + "stu'><div class = 'fancy'>Students:</div><div class = 'displayStudents' id = '" + SECTIONS[i].id + "dispstu'></div></td>";
 
         //shows size data
         returnVal += "<td id = '"+ SECTIONS[i].id+"size'><div class = 'fancy'>Size:</div><div id = '" +SECTIONS[i].id +"dispsize'</td>";
@@ -29,29 +29,32 @@ function dispStudents(sectId) {
     //fix positioning, size
 
     //make hidable here ?
-    var stuTable = "<table id = '" + sectId + "stu'>";
+    var stuTable = "<table class = 'studentTable' id = '" + sectId + "stu'>";
 
     var sect = val(sectId, 'section');
     //sets up table w/student data
+    stuTable += "<tr id = 'studentInfo'><td>First Name:</td><td>Last Name:</td><td>Grade:</td></tr>";
     for(var i = 0; i < sect.students.length; i ++) {
         stuTable += "<tr id = '" + sectId + "dispStu" + i + "'>";
-        stuTable += "<td>" + sect.students[i].firstName + "</td>";
-        stuTable += "<td>" + sect.students[i].lastName + "</td>";
-        stuTable += "<td>" + sect.students[i].grade + "</td>";
+        stuTable += "<td id = 'stu" + sect.students[i].id + "fn'>" + sect.students[i].firstName + "</td>";
+        stuTable += "<td id = 'stu" + sect.students[i].id + "ln'>" + sect.students[i].lastName + "</td>";
+        stuTable += "<td id = 'stu" + sect.students[i].id + "gr'>" + sect.students[i].grade + "</td>";
         stuTable += "</tr>";
     }
 
     //div to add/remove students from THIS section
-    stuTable += "<div id = 'add_remove'>";
+    var addRem= "<div id = 'add_remove'>";
     //removes student
-    stuTable += "<button id = 'removeStu"+sectId+"' onclick = 'removeStudentFromSection("+sectId + ", prompt(\"Enter the ID of the student you want to remove.\"));";
+    addRem += "<button id = 'removeStu"+sectId+"' onclick = 'removeStudentFromSection("+sectId + ", prompt(\"Enter the ID of the student you want to remove.\"));";
     //hides then shows section info: resets students
-    stuTable += "hideSectionInfo(" + sectId+ "); listSectionInfo(" + sectId+ ");'></button>";
+    addRem += "hideSectionInfo(" + sectId+ "); listSectionInfo(" + sectId+ ");'>Remove student</button>";
     //removes student
-    stuTable += "<button id = 'addStu"+sectId+"' onclick = 'addStudentToSection(" +sectId+", prompt(\"Enter the ID of the student you want to add.\"));";
+    addRem += "<button id = 'addStu"+sectId+"' onclick = 'addStudentToSection(" +sectId+", prompt(\"Enter the ID of the student you want to add.\"));";
     //hides then shows section info: resets students
-    stuTable += "hideSectionInfo(" + sectId + "); listSectionInfo(" + sectId + ");'></button></div></td>";
-    return stuTable;
+    addRem += "hideSectionInfo(" + sectId + "); listSectionInfo(" + sectId + ");'>Add student</button></div>";
+
+    document.getElementById(sectId + 'dispstu').innerHTML += stuTable + "</table>";
+    document.getElementById(sectId + 'dispstu').innerHTML += addRem ;
 }
 
 
@@ -117,7 +120,7 @@ function listSectionInfo(sect) {
     document.getElementById('dispsect').className = 'secret';
     document.getElementById(sect.id + "disptea").innerHTML += "Mx. " + sect.teacher.lastName;
 
-    document.getElementById(sect.id + "dispstu").innerHTML += dispStudents(sect.id);
+    dispStudents(sect.id);
 
     document.getElementById(sect.id + "dispsize").innerHTML += "Current Size: " + sect.currentSize + "<br>Max Size: " + sect.maxSize + "<br>Seats Remaining: " + sect.sectionSeatsRemaining();
     console.log(sect);
