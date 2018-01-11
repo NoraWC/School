@@ -45,7 +45,16 @@ function val(id, type) {
 function addStudentToSection(section, stu) {
     stu = val(stu, "student");
     section = val(section, 'section');
-    section.addStudent(stu);
+    for(var num = 0; num < section.students.length; num++) {
+        if (section.students[num].id !== stu.id) {
+            section.addStudent(stu);
+            setAddSection();
+            hideSectionInfo(section.id);
+            listSectionInfo(section);
+        } else {
+            document.getElementById("addingSect").innerHTML += "This student is already in this section!";
+        }
+    }
 }
 
 function removeStudentFromSection(section, id) {
@@ -57,8 +66,7 @@ function removeStudentFromSection(section, id) {
             section.removeStudent(section.students[num]);
         }
     }
-    section.currentSize -= 1;
-    console.log(section);
+    setAddSection();
     hideSectionInfo(section.id);
     listSectionInfo(section);
 }
@@ -130,19 +138,22 @@ function addaTeacher() {
 function addSection() {
     var sect = new Section();
     sect.name = document.getElementById('addSectName').value;
-    sect.maxSize = document.getElementById('addSectMax').value;
+    sect.maxSize = parseInt(document.getElementById('addSectMax').value);
+
+    //find value of selected!!!!!
+    var teacher = parseInt(document.getElementById('teacher').value);
+
+    //find value of selected!!!!!
+    var students = parseInt(document.getElementById("students").value);
+    sect.addStudent(val(students, 'student'));
+
+    sect.addTeacher(val(teacher, 'teacher'));
+
     sect.currentSize = sect.students.length;
-    /*
-    //adding students to new sections? manually is clunky
-    var students = document.getElementById("addingSectStu").value;
-    for(var z = 0; z < sect.currentSize; z++) {
-        students[z] = val(students[z], 'student');
-        sect.students.push(students[z]);
-    }
-    sect.teacher = val(teacher, 'teacher');
-    */
+
     SECTIONS.push(sect);
     console.log(SECTIONS);
+    console.log(sect);
     html();
     return sect;
 

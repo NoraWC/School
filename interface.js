@@ -33,7 +33,7 @@ function dispStudents(sectId) {
 
     var sect = val(sectId, 'section');
     //sets up table w/student data
-    stuTable += "<tr id = 'studentInfo'><td>First Name:</td><td>Last Name:</td><td>Grade:</td></tr>";
+    stuTable += "<tr id = 'studentInfo'><td class = 'fancy'>First Name:</td><td class = 'fancy'>Last Name:</td><td class = 'fancy'>Grade:</td></tr>";
     for(var i = 0; i < sect.students.length; i ++) {
         stuTable += "<tr id = '" + sectId + "dispStu" + i + "'>";
         stuTable += "<td id = 'stu" + sect.students[i].id + "fn'>" + sect.students[i].firstName + "</td>";
@@ -45,13 +45,9 @@ function dispStudents(sectId) {
     //div to add/remove students from THIS section
     var addRem= "<div id = 'add_remove'>";
     //removes student
-    addRem += "<button id = 'removeStu"+sectId+"' onclick = 'removeStudentFromSection("+sectId + ", prompt(\"Enter the ID of the student you want to remove.\"));";
-    //hides then shows section info: resets students
-    addRem += "hideSectionInfo(" + sectId+ "); listSectionInfo(" + sectId+ ");'>Remove student</button>";
+    addRem += "<button id = 'removeStu"+sectId+"' onclick = 'removeStudentFromSection("+sectId + ", prompt(\"Enter the ID of the student you want to remove.\"));'>Remove student</button>";
     //removes student
-    addRem += "<button id = 'addStu"+sectId+"' onclick = 'addStudentToSection(" +sectId+", prompt(\"Enter the ID of the student you want to add.\"));";
-    //hides then shows section info: resets students
-    addRem += "hideSectionInfo(" + sectId + "); listSectionInfo(" + sectId + ");'>Add student</button></div>";
+    addRem += "<button id = 'addStu"+sectId+"' onclick = 'addStudentToSection(" +sectId+", prompt(\"Enter the ID of the student you want to add.\"));'>Add student</button></div>";
 
     document.getElementById(sectId + 'dispstu').innerHTML += stuTable + "</table>";
     document.getElementById(sectId + 'dispstu').innerHTML += addRem ;
@@ -59,9 +55,10 @@ function dispStudents(sectId) {
 
 
 function setAddSection() {
+    console.log(FREE_STUDENTS);
     var fin = "<select id = 'students'>";
     for (var i = 0; i < FREE_STUDENTS.length; i ++) {
-        fin+= "<option id = 'student" + i + "' value = '" + FREE_STUDENTS[i].firstName + " " + FREE_STUDENTS[i].lastName + "'>";
+        fin+= "<option id = 'student" + i + "' value = '" + FREE_STUDENTS[i].id + "'>";
         fin += FREE_STUDENTS[i].firstName + " " + FREE_STUDENTS[i].lastName + "</option>";
     }
     fin+= "</select>";
@@ -69,7 +66,7 @@ function setAddSection() {
 
     var ret = "<select id = 'teacher'>";
     for (var x = 0; x < FREE_TEACHERS.length; x ++) {
-        ret += "<option id = 'teacher" + x + "' value = '" + FREE_TEACHERS[x].firstName + " " + FREE_TEACHERS[x].lastName + "'>";
+        ret += "<option id = 'teacher" + x + "' value = '" + FREE_TEACHERS[x].id + "'>";
         ret += FREE_TEACHERS[x].firstName + " " + FREE_TEACHERS[x].lastName + "</option>";
     }
     ret += "</select>";
