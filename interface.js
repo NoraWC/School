@@ -6,8 +6,8 @@ function html() {
     for(var i = 0; i < len; i ++) {
         //displays section name, contains buttons to hide/show section
         returnVal += "<tr id = 'sect" + SECTIONS[i].id + "all'><td id = 'name'><div class = 'fancy'>Section:</div><div id = '" + SECTIONS[i].id + "name'></div>";
-        returnVal += "<button id = 'dispsect'" + i + "' onclick = 'listSectionInfo(" + SECTIONS[i].name + ")'>Display Info</button>";
-        returnVal += "<button id = 'hidesect' class = 'secret' onclick = 'hideSectionInfo("+SECTIONS[i].id+");'>Hide Info</td>";
+        returnVal += "<button id = 'dispsect" + SECTIONS[i].id + "' onclick = 'listSectionInfo(" + SECTIONS[i].id + ")'>Display Info</button>";
+        returnVal += "<button id = 'hidesect" + SECTIONS[i].id + "' class = 'secret' onclick = 'hideSectionInfo("+SECTIONS[i].id+");'>Hide Info</td>";
 
         //teacher
         returnVal += "<td id = '" + SECTIONS[i].id + "tea'><div class = 'fancy'>Teacher:</div><div id = '" + SECTIONS[i].id + "disptea'></div></td>";
@@ -55,7 +55,12 @@ function dispStudents(sectId) {
 
 
 function setAddSection() {
+
+    document.getElementById('sectbars').innerHTML = "<input type = text title = 'addSect1' id = 'addSectName' value = 'Section Name'>";
+    document.getElementById('sectbars').innerHTML += "<input type = text title = 'addSect1' id = 'addSectMax' value = 'Max Size'>";
+
     console.log(FREE_STUDENTS);
+    //need to make it possible to choose multiple students
     var fin = "<select id = 'students'>";
     for (var i = 0; i < FREE_STUDENTS.length; i ++) {
         fin+= "<option id = 'student" + i + "' value = '" + FREE_STUDENTS[i].id + "'>";
@@ -103,8 +108,8 @@ function setSearch() {
 function hideSectionInfo(sectId) {
     sectId = parseInt(sectId);
     document.getElementById(sectId+ "name").innerHTML = "";
-    document.getElementById('hidesect').className = 'secret';
-    document.getElementById('dispsect').className = 'show';
+    document.getElementById('hidesect' + sectId).className = 'secret';
+    document.getElementById('dispsect' + sectId).className = 'show';
     document.getElementById(sectId + "disptea").innerHTML = "";
     document.getElementById(sectId + "dispstu").innerHTML = "";
     document.getElementById(sectId + "dispsize").innerHTML = "";
@@ -113,9 +118,11 @@ function hideSectionInfo(sectId) {
 function listSectionInfo(sect) {
     sect = val(sect, 'section');
     document.getElementById(sect.id + "name").innerHTML += "Section " + sect.id + ": " + sect.name;
-    document.getElementById('hidesect').className = 'show';
-    document.getElementById('dispsect').className = 'secret';
-    document.getElementById(sect.id + "disptea").innerHTML += "Mx. " + sect.teacher.lastName;
+    document.getElementById('hidesect'+sect.id).className = 'show';
+    document.getElementById('dispsect'+sect.id).className = 'secret';
+
+    console.log(sect.teacher);
+    document.getElementById(sect.id + "disptea").innerHTML += "Mx. " + sect.teacher.lastName + "<br>Subject: " + sect.teacher.subject;
 
     dispStudents(sect.id);
 
@@ -127,12 +134,13 @@ function listSectionInfo(sect) {
 function search(fn, ln, id, gr, type) {
     var f = false;
     if(type === 'stu') {
+        document.getElementById('searchDisplay').innerHTMl = "";
         var arr = [];
         id = parseInt(id);
         gr = parseInt(gr);
         for(var z =0; z < SECTIONS.length; z ++) {
             for (var i = 0; i < SECTIONS[z].students.length; i++) {
-                if(SECTIONS[z].students[i].id === id || (SECTIONS[z].students[i].firstName === fn && SECTIONS[z].students[i].lastName === ln) || SECTIONS[z].students[i].grade === gr){
+                if(SECTIONS[z].students[i].id === id || (SECTIONS[z].students[i].firstName === fn && SECTIONS[z].students[i].lastName === ln && SECTIONS[z].students[i].grade === gr)){
                     arr.push(SECTIONS[z].students[i].firstName+" "+SECTIONS[z].students[i].lastName+" ID "+SECTIONS[z].students[i].id+" is in grade "+SECTIONS[z].students[i].grade+" and section " + SECTIONS[z].id + ".");
                     f = true;
                 }
@@ -143,32 +151,33 @@ function search(fn, ln, id, gr, type) {
             document.getElementById("searchDisplay").innerHTML = "Student "+fn+" "+ln+" ID "+id+" in grade "+gr+" not found. Try searching in other grades and checking your spelling. Are you sure this student is in a section?"
         }
     } else if(type === 'tea') {
-        document.getElementById('searchDisplay').innerHTMl ="";
-        var t = null;
+        document.getElementById('searchDisplay').innerHTMl = "";
         id = parseInt(id);
         gr = gr.toString();
         for(var x =0; x < SECTIONS.length; x ++) {
             var teacher = SECTIONS[x].teacher;
             if (teacher.id === id || (teacher.firstName === fn && teacher.lastName === ln) || teacher.subject === gr) {
                 document.getElementById('searchDisplay').innerHTML = "Mx. "+teacher.firstName+" "+teacher.lastName+" ID "+teacher.id+" teaches "+teacher.subject+" in section " + SECTIONS[x].id + ".";
-                t = SECTIONS[x].teacher;
                 f = true;
             }
         }
         if (!f) {
             document.getElementById('searchDisplay').innerHTML = "Teacher " + fn + " " + ln + " ID " + id + " of " + gr + " not found. Try checking your spelling. Are you sure this teacher is in a section?"
         }
-        return t
-    } else {
-        document.getElementById('searchDisplay').innerHTMl ="";
+    }
+    if(type === "sec") {
+        document.getElementById('searchDisplay').innerHTML = "";
+        f = false;
+        ln = parseInt(ln);
         for(var b = 0; b < SECTIONS.length; b++) {
             if(SECTIONS[b].name === fn || SECTIONS[b].id === ln) {
                 document.getElementById('searchDisplay').innerHTML += SECTIONS[b].listInfo();
                 f = true;
             }
         }
-        if (!f) {
-            document.getElementById('searchDisplay').innerHTMl = "Section "+fn+" ID " + ln+" not found. Try checking your spelling.";
+
+        if (f === false) {
+            document.getElementById('searchDisplay').innerHTML += "Section "+fn+" ID " + ln+" not found. Try checking your spelling.";
         }
     }
 }

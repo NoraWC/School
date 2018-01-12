@@ -13,22 +13,37 @@
 
 function val(id, type) {
     var arr = [];
+    var ray;
     if (type === "section") {
-        //id = id.toString();
+        id = parseInt(id);
         arr = SECTIONS;
     } else if (type === "student") {
         id = parseInt(id);
-        if(STUDENTS.length<id) {
-            arr = FREE_STUDENTS;
-        } else {
-            arr = STUDENTS;
+        for(var bin = 0; bin < 2; bin ++) {
+            if(bin === 0) {
+                ray = STUDENTS;
+            } else {
+                ray = FREE_STUDENTS;
+            }
+            for (var num = 0; num < ray.length; num ++) {
+                if(ray[num].id === id) {
+                    arr = ray;
+                }
+            }
         }
     } else if (type === "teacher") {
         id = parseInt(id);
-        if(TEACHERS.length<id) {
-            arr = FREE_TEACHERS;
-        } else {
-            arr = TEACHERS;
+        for(var ary = 0; ary < 2; ary ++) {
+            if(ary === 0) {
+                ray = TEACHERS;
+            } else {
+                ray = FREE_TEACHERS;
+            }
+            for (var i = 0; i < ray.length; i ++) {
+                if(ray[i].id === id) {
+                    arr = ray;
+                }
+            }
         }
     } else {
         return 0;
@@ -50,7 +65,7 @@ function addStudentToSection(section, stu) {
             section.addStudent(stu);
             setAddSection();
             hideSectionInfo(section.id);
-            listSectionInfo(section);
+            listSectionInfo(section.id);
         } else {
             document.getElementById("addingSect").innerHTML += "This student is already in this section!";
         }
@@ -68,7 +83,7 @@ function removeStudentFromSection(section, id) {
     }
     setAddSection();
     hideSectionInfo(section.id);
-    listSectionInfo(section);
+    listSectionInfo(section.id);
 }
 
 function addaStudent() {
@@ -154,7 +169,6 @@ function addSection() {
     SECTIONS.push(sect);
     console.log(SECTIONS);
     console.log(sect);
+    setAddSection();
     html();
-    return sect;
-
 }
