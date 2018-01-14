@@ -78,6 +78,13 @@ c.lastName = "four";
 c.grade = 12;
 FREE_STUDENTS.push(c);
 
+var f = new Student();
+f.firstName = "Frannie";
+f.lastName = "Fisher";
+f.grade = 12;
+FREE_STUDENTS.push(f);
+
+
 var d = new Teacher();
 d.firstName = "Doc";
 d.lastName = "Tor";

@@ -61,9 +61,9 @@ function setAddSection() {
 
     console.log(FREE_STUDENTS);
     //need to make it possible to choose multiple students
-    var fin = "<select id = 'students'>";
+    var fin = "<select id = 'students' multiple>";
     for (var i = 0; i < FREE_STUDENTS.length; i ++) {
-        fin+= "<option id = 'student" + i + "' value = '" + FREE_STUDENTS[i].id + "'>";
+        fin+= "<option value = '" + FREE_STUDENTS[i].id + "'>";
         fin += FREE_STUDENTS[i].firstName + " " + FREE_STUDENTS[i].lastName + "</option>";
     }
     fin+= "</select>";
@@ -71,7 +71,7 @@ function setAddSection() {
 
     var ret = "<select id = 'teacher'>";
     for (var x = 0; x < FREE_TEACHERS.length; x ++) {
-        ret += "<option id = 'teacher" + x + "' value = '" + FREE_TEACHERS[x].id + "'>";
+        ret += "<option value = '" + FREE_TEACHERS[x].id + "'>";
         ret += FREE_TEACHERS[x].firstName + " " + FREE_TEACHERS[x].lastName + "</option>";
     }
     ret += "</select>";

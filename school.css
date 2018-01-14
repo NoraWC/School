@@ -1,6 +1,3 @@
-/*
-* relative positioning!!
- */
 
 .secret {
     display: none;
@@ -10,49 +7,104 @@
     display : inline;
 }
 
-table {
-    border: 1px black solid;
-    background-color: inherit;
-    margin-left:33%;
-    margin-right:33%;
+
+
+#adder {
+    position:relative;
+    bottom: 100px;
 }
-td {
-    text-overflow-mode: wrap;
-    border: 1px black solid;
+#addingStudents {
+    position: relative;
+    bottom: 130px;
+}
+#addingTeachers{
+    position: relative;
+    bottom: 130px;
+}
+#addingSect{
+    position: relative;
+    bottom: 130px;
+}
+#addSectMax {
+    position:relative;
+    bottom:-20px;
+    right: 131px;
+}
+select#students {
+    position: relative;
+    bottom: -21px;
+
+}
+#addingSectTea{
+    position: relative;
+    bottom: -20px;
+}
+#addsectbutton {
+    position: relative;
+    height: 20px;
+    bottom: -23px;
 }
 
-
-.fancy {
-    background-color: darkkhaki;
-    padding-top: 0;
-}
-
-
-#studentInputs {
-    size: 131px 113px;
-    margin-top: -14%;
-    height : 100%;
-}
-
-#teacherInputs {
-    size: 131px 113px;
-    margin-top: -14%;
-    height : 100%;
-}
-
-.searcher {
-    display: none;
-}
-
-.studentTable {
-    border: none;
-    margin-left: 20%;
-}
-
-.displayStudents {
-    padding-right: 45%;
+.descriptor {
+    position:relative;
+    bottom: -23px;
+    margin-bottom:0;
+    margin-top: 0;
 }
 
 #searchMain {
     position: relative;
+    left: 80%;
+    width:300px;
+    height:120px;
+}
+
+#searchstu {
+    position: relative;
+}
+#searchtea {
+    position:relative;
+}
+#searchsec{
+    position:relative;
+}
+#searchDisplay{
+    position:relative;
+    width:70%;
+    left:10%;
+    margin-right:10%;
+}
+
+
+#displayTable {
+    position:relative;
+    bottom:60px;
+    padding-top:0;
+    left:33%;
+    width:33%;
+    border: 1px black solid;
+}
+
+#displayTable td {
+    text-overflow-mode: wrap;
+    border: 1px black solid;
+    padding-top:0;
+}
+
+.fancy {
+    background-color: darkkhaki;
+    padding-top: 0;
+    margin-top:0;
+}
+
+.studentTable {
+    position: relative;
+    border: none;
+    margin-left: 0;
+    margin-right: 10%;
+}
+
+.titletext {
+    position:relative;
+    margin-bottom: 0;
 }

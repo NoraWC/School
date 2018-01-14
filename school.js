@@ -66,6 +66,7 @@ function addStudentToSection(section, stu) {
             setAddSection();
             hideSectionInfo(section.id);
             listSectionInfo(section.id);
+            break;
         } else {
             document.getElementById("addingSect").innerHTML += "This student is already in this section!";
         }
@@ -155,12 +156,18 @@ function addSection() {
     sect.name = document.getElementById('addSectName').value;
     sect.maxSize = parseInt(document.getElementById('addSectMax').value);
 
-    //find value of selected!!!!!
     var teacher = parseInt(document.getElementById('teacher').value);
 
-    //find value of selected!!!!!
-    var students = parseInt(document.getElementById("students").value);
-    sect.addStudent(val(students, 'student'));
+    var studentsList = [];
+    for (var i = 0; i < document.getElementById('students').length; i++) {
+        if(document.getElementById('students')[i].selected === true) {
+            studentsList.push(parseInt(document.getElementById('students')[i].value));
+        }
+    }
+
+    for (var x = 0; x < studentsList.length; x++) {
+        sect.addStudent(val(studentsList[x], 'student'));
+    }
 
     sect.addTeacher(val(teacher, 'teacher'));
 

@@ -18,45 +18,6 @@ Final Notes!
 2. relative postioning!!! Do it!!!
 3. make it pretty!
 -->
-<table id = 'adder'>
-    <tr>
-        <td>
-            <div id = 'addingStudents'>
-            <input type = text title = 'addStuName1' id = 'addStuName1' value = 'First Name'>
-            <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
-            <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
-            <button onclick = 'addaStudent();'>Create a Student</button>
-            </div>
-        </td>
-        <td>
-            <div id = 'addingTeachers'>
-                <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
-                <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
-                <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
-                <button onclick = 'addaTeacher();'>Create A Teacher</button>
-            </div>
-        </td>
-        <td>
-            <div id = 'addingSect'>
-                <div id = 'sectbars'></div>
-
-                <div id = 'addingSectStu'></div>
-
-                <div id = 'addingSectTea'></div>
-
-                <script>setAddSection();</script>
-
-                <button onclick = 'addSection();'>Create a Section</button>
-            </div>
-        </td>
-    </tr>
-</table>
-
-<br>
-
-<table id = 'displayTable'><script>html();</script></table>
-
-<br>
 
 <div id = 'searchMain'>
     <button id = 'stusearch' onclick = 'document.getElementById("searchstu").className = "show";
@@ -90,6 +51,58 @@ Final Notes!
     <br>
     <div id = 'searchDisplay'></div>
 </div>
+
+
+<table id = 'adder'>
+    <tr>
+        <td>
+            <button onclick = "document.getElementById('addingStudents').className = 'show';
+            document.getElementById('addingSect').className = 'secret';
+            document.getElementById('addingTeachers').className = 'secret';">Create a Student</button>
+        </td>
+        <td>
+            <button onclick = "document.getElementById('addingTeachers').className = 'show';
+            document.getElementById('addingSect').className = 'secret';
+            document.getElementById('addingStudents').className = 'secret';">Create a Teacher</button>
+        </td>
+        <td>
+            <button onclick = "document.getElementById('addingSect').className = 'show';
+            document.getElementById('addingTeachers').className = 'secret';
+            document.getElementById('addingStudents').className = 'secret';">Create a Section</button>
+        </td>
+    </tr>
+</table>
+
+<table id = 'displayTable'><script>html();</script></table>
+
+
+<div id = 'addingStudents' class = 'secret'>
+    <p class = 'titletext'>Enter Student Details</p>
+    <input type = text title = 'addStuName1' id = 'addStuName1' value = 'First Name'>
+    <input type = text title = 'addStuName2' id = 'addStuName2' value = 'Last Name'>
+    <input type = text title = 'addStuGrade' id = 'addStuGrade' value = 'Grade'>
+    <button onclick = 'addaStudent(); document.getElementById("addingStudents").className = "secret";'>Create a Student</button>
+</div>
+
+<div id = 'addingTeachers' class = 'secret'>
+    <p class = 'titletext'>Enter Teacher Details</p>
+    <input type = text title = 'addTeaName1' id = 'addTeaName1' value = 'First Name'>
+    <input type = text title = 'addTeaName2' id = 'addTeaName2' value = 'Last Name'>
+    <input type = text title = 'addTeaSubj' id = 'addTeaSubj' value = 'Subject'>
+    <button onclick = 'addaTeacher(); document.getElementById("addingTeachers").className = "secret";'>Create A Teacher</button>
+</div>
+
+<div id = 'addingSect' class = 'secret'>
+    <p class = 'titletext'>Enter Section Details</p>
+    <div id = 'sectbars'></div>
+    <p class = 'descriptor'>Choose Students:</p>
+    <div id = 'addingSectStu'></div>
+    <p class = 'descriptor'>Choose a Teacher:</p>
+    <div id = 'addingSectTea'></div>
+    <script>setAddSection();</script>
+    <button id = 'addsectbutton' onclick = 'addSection(); document.getElementById("addingSect").className = "secret";'>Create a Section</button>
+</div>
+
 
 </body>
 </html>
