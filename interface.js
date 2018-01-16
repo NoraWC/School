@@ -5,7 +5,7 @@ function html() {
 
     for(var i = 0; i < len; i ++) {
         //displays section name, contains buttons to hide/show section
-        returnVal += "<tr id = 'sect" + SECTIONS[i].id + "all'><td id = 'name'><div class = 'fancy'>Section:</div><div id = '" + SECTIONS[i].id + "name'></div>";
+        returnVal += "<tr id = 'sect" + SECTIONS[i].id + "all'><td id = 'name'><div class = 'fancy'>Section " + SECTIONS[i].id +"</div><div id = '" + SECTIONS[i].id + "name'></div>";
         returnVal += "<button id = 'dispsect" + SECTIONS[i].id + "' onclick = 'listSectionInfo(" + SECTIONS[i].id + ")'>Display Info</button>";
         returnVal += "<button id = 'hidesect" + SECTIONS[i].id + "' class = 'secret' onclick = 'hideSectionInfo("+SECTIONS[i].id+");'>Hide Info</td>";
 
@@ -117,7 +117,7 @@ function hideSectionInfo(sectId) {
 
 function listSectionInfo(sect) {
     sect = val(sect, 'section');
-    document.getElementById(sect.id + "name").innerHTML += "Section " + sect.id + ": " + sect.name;
+    document.getElementById(sect.id + "name").innerHTML +=  sect.name;
     document.getElementById('hidesect'+sect.id).className = 'show';
     document.getElementById('dispsect'+sect.id).className = 'secret';
 

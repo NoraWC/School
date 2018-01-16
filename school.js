@@ -10,6 +10,29 @@
 * OBJECTS CHECK
  */
 
+function listall(inp) {
+    var arr1, arr2;
+    var ret = [];
+    if(inp === "sec") {
+        for (var x =0; x < SECTIONS.length; x ++) {
+            ret.push(SECTIONS[x].listInfo());
+        }
+        return ret;
+    }
+    else if (inp === "stu" || inp === "tea") {
+        arr1 = STUDENTS;
+        arr2 = FREE_STUDENTS;
+        if (inp === "tea") {
+            arr1 = TEACHERS;
+            arr2 = FREE_TEACHERS;
+        }
+        for (var i =0; (i < arr1.length && i < arr2.length); i++) {
+            ret.push(arr1[i].firstName + " " + arr1[i].lastName);
+            ret.push(arr2[i].firstName + " " + arr2[i].lastName);
+        }
+        return ret;
+    }
+}
 
 function val(id, type) {
     var arr = [];

@@ -1,4 +1,7 @@
 
+body {
+    background-color: lightsteelblue;
+}
 .secret {
     display: none;
 }
@@ -7,47 +10,85 @@
     display : inline;
 }
 
-
-
 #adder {
     position:relative;
     bottom: 100px;
 }
 #addingStudents {
     position: relative;
-    bottom: 130px;
+    bottom: 110px;
 }
 #addingTeachers{
     position: relative;
-    bottom: 130px;
+    bottom: 110px;
 }
 #addingSect{
     position: relative;
-    bottom: 130px;
+    bottom: 110px;
 }
+
 #addSectMax {
     position:relative;
     bottom:-20px;
+    margin-bottom: 20px;
     right: 131px;
 }
-select#students {
-    position: relative;
-    bottom: -21px;
 
+.field2 {
+    position:relative;
+    bottom:-20px;
+    margin-bottom: 20px;
+    right: 135px;
 }
-#addingSectTea{
+.field3 {
+    position:relative;
+    bottom:-40px;
+    margin-bottom: 20px;
+    right: 270px;
+}
+
+#students {
+    background-color: beige;
+}
+
+#teacher {
+    background-color: beige;
+}
+
+.fini {
     position: relative;
-    bottom: -20px;
+    right: 220px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: lightcoral;
 }
 #addsectbutton {
+    position:relative;
+    left: 180px;
+    bottom: 155px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: lightcoral;
+}
+
+
+#startsearch {
     position: relative;
-    height: 20px;
-    bottom: -23px;
+    margin-top: 5%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: lightcoral;
+}
+
+#displayTable button {
+    background-color: bisque;
 }
 
 .descriptor {
     position:relative;
-    bottom: -23px;
     margin-bottom:0;
     margin-top: 0;
 }
@@ -58,6 +99,7 @@ select#students {
     width:300px;
     height:120px;
 }
+
 
 #searchstu {
     position: relative;
@@ -72,13 +114,13 @@ select#students {
     position:relative;
     width:70%;
     left:10%;
+    bottom: -90%;
     margin-right:10%;
 }
 
-
 #displayTable {
-    position:relative;
-    bottom:60px;
+    position:fixed;
+    top:20%;
     padding-top:0;
     left:33%;
     width:33%;
@@ -98,13 +140,21 @@ select#students {
 }
 
 .studentTable {
-    position: relative;
     border: none;
     margin-left: 0;
     margin-right: 10%;
 }
 
 .titletext {
-    position:relative;
     margin-bottom: 0;
+}
+
+input {
+    background-color: beige;
+}
+
+#title {
+    text-align: center;
+    font-size: 20px;
+    color: #010158;
 }

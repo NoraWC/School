@@ -54,7 +54,7 @@ function Section() {
         return this.maxSize - this.currentSize;
     };
     this.listInfo = function() {
-        var ret = "Name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
+        var ret = "Section name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
         ret += " Seats Remaining: " + this.sectionSeatsRemaining();
         return ret;
     }
@@ -62,24 +62,24 @@ function Section() {
 
 var b = new Student();
 b.firstName = "Jo";
-b.lastName = "five";
+b.lastName = "Smith";
 b.grade = 10;
 FREE_STUDENTS.push(b);
 
 var h = new Student();
 h.firstName = "Ellie";
-h.lastName = "two";
+h.lastName = "Harper";
 h.grade = 11;
 FREE_STUDENTS.push(h);
 
 var c = new Student();
 c.firstName = "Luco";
-c.lastName = "four";
+c.lastName = "Wheeler";
 c.grade = 12;
 FREE_STUDENTS.push(c);
 
 var f = new Student();
-f.firstName = "Frannie";
+f.firstName = "Phrynie";
 f.lastName = "Fisher";
 f.grade = 12;
 FREE_STUDENTS.push(f);
@@ -98,7 +98,7 @@ i.subject = "Dog Walking";
 FREE_TEACHERS.push(i);
 
 var green = new Section();
-green.name = "green";
+green.name = "Advanced Medicine 1";
 green.maxSize = 20;
 green.addStudent(h);
 green.addStudent(b);
