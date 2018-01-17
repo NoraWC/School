@@ -1,36 +1,47 @@
-/* MUST HAVE:
-* web interface w/ buttons, text fields, display area for output CHECK
-* table w/ elements: students, teachers, sections CHECK
-* interface to add new students, teachers, sections CHECK
-* add/remove students in sections CHECK
-* search mechanism CHECK
-* show/hide div content CHECK
-* relative positioning
-* global/local vars CHECK
-* OBJECTS CHECK
- */
 
 function listall(inp) {
     var arr1, arr2;
-    var ret = [];
+    var tab = "";
     if(inp === "sec") {
-        for (var x =0; x < SECTIONS.length; x ++) {
-            ret.push(SECTIONS[x].listInfo());
+        tab = "<div id = 'listtitle' class = 'fancy'>Sections:</div><table id = 'allList'>";
+        for (var x = 0; x < SECTIONS.length; x ++) {
+            tab += '<tr id = "'+ x + '">';
+            tab += '<td id = "name">'+"Section name: " + SECTIONS[x].name+'</td>';
+            tab += '<td id = "max">'+ "Max size: "+SECTIONS[x].maxSize+'</td>';
+            tab += '<td id = "current">' + "Current size: " +SECTIONS[x].currentSize+'</td>';
+            tab += '<td id = "left">'+"Seats remaining: " + SECTIONS[x].sectionSeatsRemaining()+'</td>';
+            tab += '<td id = "tea">'+'Teacher: ' +SECTIONS[x].teacher.firstName + " " + SECTIONS[x].teacher.lastName +'</td>';
+            tab += '</tr>';
         }
-        return ret;
+        tab += "</table>";
+        tab += "<button onclick = 'document.getElementById(\"searchDisplay\").innerHTML = \"\";'>Hide this</button>";
+        return tab;
     }
     else if (inp === "stu" || inp === "tea") {
+        tab = "<div id = 'listtitle' class = 'fancy'>Students:</div>";
         arr1 = STUDENTS;
         arr2 = FREE_STUDENTS;
         if (inp === "tea") {
             arr1 = TEACHERS;
             arr2 = FREE_TEACHERS;
+            tab = "<div class = 'fancy'>Teachers:</div>";
         }
-        for (var i =0; (i < arr1.length && i < arr2.length); i++) {
-            ret.push(arr1[i].firstName + " " + arr1[i].lastName);
-            ret.push(arr2[i].firstName + " " + arr2[i].lastName);
+        tab += "<table id = 'allList' class = 'small'>";
+        for (var i = 0; (i < arr1.length || i < arr2.length); i++) {
+            if(arr1.length > i) {
+                tab += '<tr id = "'+ i +'">';
+                tab += '<td id ="id">'+arr1[i].id+'</td><td id = "fn">'+arr1[i].firstName+'</td><td id = "ln">'+arr1[i].lastName+'</td>';
+                tab += '</tr>';
+            }
+            if (arr2.length > i) {
+                tab += '<tr id = "'+ i +'">';
+                tab += '<td id ="id">'+arr2[i].id+'</td><td id = "fn">'+arr2[i].firstName+'</td><td id = "ln">'+arr2[i].lastName+'</td>';
+                tab += '</tr>';
+            }
         }
-        return ret;
+        tab += "</table>";
+        tab += "<button onclick = 'document.getElementById(\"searchDisplay\").innerHTML = \"\";'>Hide this</button>";
+        return tab;
     }
 }
 

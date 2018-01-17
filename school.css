@@ -112,10 +112,9 @@ body {
 }
 #searchDisplay{
     position:relative;
-    width:70%;
-    left:10%;
+    width:30%;
     bottom: -90%;
-    margin-right:10%;
+    right:20%;
 }
 
 #displayTable {
@@ -131,6 +130,16 @@ body {
     text-overflow-mode: wrap;
     border: 1px black solid;
     padding-top:0;
+}
+#allList td {
+    text-overflow-mode: wrap;
+    border: 1px black solid;
+    padding-top:0;
+}
+
+.small {
+    position:relative;
+    left: 100%;
 }
 
 .fancy {

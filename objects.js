@@ -2,7 +2,7 @@ var STUDENTS = [];
 var FREE_STUDENTS = [];
 var TEACHERS = [];
 var FREE_TEACHERS = [];
-var SECTIONS = [];//lists all sections
+var SECTIONS = [];
 
 function Person() {
     this.id = 0;
@@ -12,7 +12,7 @@ function Person() {
 
 function Student() {
     Person.call();
-    this.grade = 0; //not letter grade; sondern 9-12
+    this.grade = 0;
     this.searched = false;
     this.id = STUDENTS.length + FREE_STUDENTS.length + 1;
 }
@@ -41,6 +41,7 @@ function Section() {
         this.teacher = Teacher;
         var z = FREE_TEACHERS.indexOf(Teacher);
         FREE_TEACHERS.splice(z,1);
+        TEACHERS.push(Teacher);
     };
     this.removeStudent = function(stu) {
         var z = this.students.indexOf(stu);
@@ -54,8 +55,8 @@ function Section() {
         return this.maxSize - this.currentSize;
     };
     this.listInfo = function() {
-        var ret = "Section name: " + this.name + " Max Size: " + this.maxSize + " Current Size: " + this.currentSize;
-        ret += " Seats Remaining: " + this.sectionSeatsRemaining();
+        var ret = "Section name: " + this.name + ". Max Size: " + this.maxSize + ". Current Size: " + this.currentSize;
+        ret += ". Seats Remaining: " + this.sectionSeatsRemaining();
         return ret;
     }
 }

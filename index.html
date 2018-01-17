@@ -45,9 +45,9 @@
     <button id = 'startsearch' onclick = 'setSearch();'>Search!</button>
     <br>
     <div id = 'lister'>
-        <button id = 'liststu' onclick = 'listall("stu");'>List all Students</button>
-        <button id = 'listtea' onclick = 'listall("tea");'>List all Teachers</button>
-        <button id = 'listsec' onclick = 'listall("sec");'>List all Sections</button>
+        <button id = 'liststu' onclick = 'document.getElementById("searchDisplay").innerHTML = listall("stu");'>List all Students</button>
+        <button id = 'listtea' onclick = 'document.getElementById("searchDisplay").innerHTML = listall("tea");'>List all Teachers</button>
+        <button id = 'listsec' onclick = 'document.getElementById("searchDisplay").innerHTML = listall("sec");'>List all Sections</button>
     </div>
     <div id = 'searchDisplay'></div>
 </div>
