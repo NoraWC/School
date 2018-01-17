@@ -24,11 +24,6 @@ function html() {
 
 function dispStudents(sectId) {
     //displays students; add/remove students
-    //buttons to add/remove students also hide then show all section info to 'reset' table
-
-    //fix positioning, size
-
-    //make hidable here ?
     var stuTable = "<table class = 'studentTable' id = '" + sectId + "stu'>";
 
     var sect = val(sectId, 'section');
@@ -42,7 +37,7 @@ function dispStudents(sectId) {
         stuTable += "</tr>";
     }
 
-    //div to add/remove students from THIS section
+    //div to add/remove students from this section
     var addRem= "<div id = 'add_remove'>";
     //removes student
     addRem += "<button id = 'removeStu"+sectId+"' onclick = 'removeStudentFromSection("+sectId + ", prompt(\"Enter the ID of the student you want to remove.\"));'>Remove student</button>";
@@ -60,7 +55,6 @@ function setAddSection() {
     document.getElementById('sectbars').innerHTML += "<input type = text title = 'addSect1' id = 'addSectMax' value = 'Max Size'>";
 
     console.log(FREE_STUDENTS);
-    //need to make it possible to choose multiple students
     var fin = "<select id = 'students' multiple>";
     for (var i = 0; i < FREE_STUDENTS.length; i ++) {
         fin+= "<option value = '" + FREE_STUDENTS[i].id + "'>";
